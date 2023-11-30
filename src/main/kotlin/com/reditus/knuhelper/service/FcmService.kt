@@ -6,7 +6,7 @@ import com.google.firebase.messaging.Notification
 import org.springframework.stereotype.Service
 
 @Service
-class FirebaseService(
+class FcmService(
     private val firebaseMessaging: FirebaseMessaging,
 ) {
 
