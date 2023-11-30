@@ -10,8 +10,10 @@ import com.reditus.knuhelper.utils.findByIdOrThrow
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional(readOnly = true)
 class UserService (
     private val userRepository: UserRepository,
     private val userSubsribedSiteRepository: UserSubsribedSiteRepository
@@ -23,6 +25,7 @@ class UserService (
         )
     }
 
+    @Transactional
     fun addUserFavoriteSite(userId: Long, request: UserSubscribeSiteRequest): ResponseEntity<Any> {
         val user = userRepository.findByIdOrThrow(userId)
         val site = UserSubscribedSite(
