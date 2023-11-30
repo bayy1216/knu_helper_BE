@@ -1,19 +1,19 @@
 package com.reditus.knuhelper.dto.user.response
 
 import com.reditus.knuhelper.domain.notice.Site
-import com.reditus.knuhelper.domain.user.UserFavoriteSite
+import com.reditus.knuhelper.domain.user.UserSubscribedSite
 
-data class UserFavoriteSiteResponse(
-    val data: List<UserFavoriteSiteDto>
+data class UserSubscribedSiteResponse(
+    val data: List<UserSubscribedSiteDto>
 )
 
-data class UserFavoriteSiteDto(
+data class UserSubscribedSiteDto(
     val site: Site,
     val color: String,
     val isAlarm: Boolean
 )
 
-fun UserFavoriteSite.toDto() = UserFavoriteSiteDto(
+fun UserSubscribedSite.toDto() = UserSubscribedSiteDto(
     site = this.site,
     color = this.color,
     isAlarm = this.isAlarm

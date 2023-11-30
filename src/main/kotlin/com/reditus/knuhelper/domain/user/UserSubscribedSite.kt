@@ -4,7 +4,7 @@ import com.reditus.knuhelper.domain.notice.Site
 import jakarta.persistence.*
 
 @Entity
-class UserFavoriteSite(
+class UserSubscribedSite(
     @ManyToOne
     @JoinColumn(name = "user_id")
     val user: User,

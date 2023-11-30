@@ -11,7 +11,7 @@ class User(
     val userRole: UserRole,
 
     @OneToMany(mappedBy = "user")
-    val favoriteSite: MutableList<UserFavoriteSite> = mutableListOf(),
+    val subscribedSite: MutableList<UserSubscribedSite> = mutableListOf(),
 
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

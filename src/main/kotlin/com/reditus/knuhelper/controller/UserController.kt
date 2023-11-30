@@ -1,8 +1,8 @@
 package com.reditus.knuhelper.controller
 
 import com.reditus.knuhelper.core.annotation.TokenUserId
-import com.reditus.knuhelper.dto.user.request.AddUserFavoriteSiteRequest
-import com.reditus.knuhelper.dto.user.response.UserFavoriteSiteResponse
+import com.reditus.knuhelper.dto.user.request.UserSubscribeSiteRequest
+import com.reditus.knuhelper.dto.user.response.UserSubscribedSiteResponse
 import com.reditus.knuhelper.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -16,10 +16,10 @@ class UserController(
     private val userService: UserService,
 ) {
     @GetMapping("/favorite-site")
-    fun getUserFavoriteSite(@TokenUserId userId: Long): UserFavoriteSiteResponse =
+    fun getUserFavoriteSite(@TokenUserId userId: Long): UserSubscribedSiteResponse =
         userService.getUserFavoriteSite(userId)
 
     @PostMapping("/favorite-site")
-    fun addUserFavoriteSite(@TokenUserId userId: Long, request: AddUserFavoriteSiteRequest): ResponseEntity<Any> =
+    fun addUserFavoriteSite(@TokenUserId userId: Long, request: UserSubscribeSiteRequest): ResponseEntity<Any> =
         userService.addUserFavoriteSite(userId, request)
 }
