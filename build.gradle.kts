@@ -28,6 +28,9 @@ dependencies {
 	//runtimeOnly("com.h2database:h2")
 	runtimeOnly ("org.mariadb.jdbc:mariadb-java-client")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	//firebase
+	implementation("com.google.firebase:firebase-admin:8.1.0")
 }
 
 tasks.withType<KotlinCompile> {
