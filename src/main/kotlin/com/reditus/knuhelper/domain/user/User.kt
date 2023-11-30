@@ -10,7 +10,7 @@ class User(
     @Enumerated(EnumType.STRING)
     val userRole: UserRole,
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     val subscribedSite: MutableList<UserSubscribedSite> = mutableListOf(),
 
 
