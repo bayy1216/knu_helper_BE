@@ -1,6 +1,9 @@
 package com.reditus.knuhelper.controller
 
+import com.reditus.knuhelper.dto.auth.AccessTokenResponse
+import com.reditus.knuhelper.dto.auth.TokenResponse
 import com.reditus.knuhelper.service.AuthService
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -9,4 +12,18 @@ import org.springframework.web.bind.annotation.RestController
 class AuthController(
     private val authService: AuthService,
 ) {
+    @PostMapping("/signup")
+    fun signup() : TokenResponse{
+        return TokenResponse("access", "refresh")
+    }
+
+    @PostMapping("/login")
+    fun login() : TokenResponse{
+        return TokenResponse("access", "refresh")
+    }
+
+    @PostMapping("/token")
+    fun token() : AccessTokenResponse{
+        return AccessTokenResponse("access")
+    }
 }
