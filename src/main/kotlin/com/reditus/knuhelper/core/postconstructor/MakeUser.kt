@@ -5,11 +5,11 @@ import com.reditus.knuhelper.domain.user.UserRepository
 import com.reditus.knuhelper.domain.user.UserRole
 import jakarta.annotation.PostConstruct
 import jakarta.persistence.EntityManager
+import org.springframework.stereotype.Component
 
-
+@Component
 class MakeUser (
     private val userRepository: UserRepository,
-    private val em: EntityManager,
 ){
     @PostConstruct
     fun init(){

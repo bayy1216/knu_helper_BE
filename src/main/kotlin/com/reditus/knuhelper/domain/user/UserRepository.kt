@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 
 interface UserRepository : JpaRepository<User, Long> {
-    @Query("SELECT u FROM User u JOIN FETCH u.subscribedSite WHERE u.id = :userId")
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.subscribedSite WHERE u.id = :userId")
     fun findByIdWithSubscribedSites(@Param("userId") userId: Long): User?
 }
