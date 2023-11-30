@@ -1,9 +1,11 @@
 package com.reditus.knuhelper.service
 
+import com.reditus.knuhelper.domain.notice.Notice
 import com.reditus.knuhelper.domain.notice.NoticeRepository
 import com.reditus.knuhelper.domain.notice.Site
 import com.reditus.knuhelper.domain.user.UserRepository
 import com.reditus.knuhelper.dto.common.PagingResponse
+import com.reditus.knuhelper.dto.notice.request.CreateNoticeRequest
 import com.reditus.knuhelper.dto.notice.response.NoticeDto
 import com.reditus.knuhelper.dto.notice.response.toDto
 import com.reditus.knuhelper.utils.findByIdOrThrow
@@ -27,5 +29,18 @@ class NoticeService(
             hasNext = notices.hasNext(),
             data = notices.content.map { it.toDto() }
         )
+    }
+
+    fun createNotice(request: CreateNoticeRequest) : Long {
+        val notice = Notice(
+            title = request.title,
+            content = request.content,
+            type = request.type,
+            url = request.url,
+            views = request.views,
+            site = request.site,
+        )
+        noticeRepository.save(notice)
+        return notice.id!!
     }
 }
