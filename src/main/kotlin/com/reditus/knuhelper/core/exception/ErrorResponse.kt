@@ -1,4 +1,4 @@
-package com.reditus.knuhelper.core.handler
+package com.reditus.knuhelper.core.exception
 
 data class ErrorResponse(
     val code: String,

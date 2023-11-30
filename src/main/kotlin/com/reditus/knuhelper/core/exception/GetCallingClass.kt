@@ -1,4 +1,4 @@
-package com.reditus.knuhelper.core.handler
+package com.reditus.knuhelper.core.exception
 
 import org.springframework.stereotype.Component
 
