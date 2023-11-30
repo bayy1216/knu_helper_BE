@@ -4,6 +4,7 @@ import com.reditus.knuhelper.domain.common.BaseTimeEntity
 import jakarta.persistence.*
 
 @Entity
+@Table(name = "users")
 class User(
     var name: String,
 
