@@ -24,7 +24,7 @@ class NoticeService(
     fun getNotice(userId: Long, page:Int, pageSize: Int): PagingResponse<NoticeDto> {
         val user = userRepository.findByIdWithSubscribedSites(userId) ?: throw IllegalArgumentException("존재하지 않는 유저입니다.")
         val sites = user.subscribedSite.map { it.site }
-        val notices = noticeRepository.findAllBySiteInOrderByCreatedDateDesc(sites.toList(), PageRequest.of(page, pageSize))
+        val notices = noticeRepository.findAllBySiteInOrderByCreatedAtDesc(sites.toList(), PageRequest.of(page, pageSize))
         return PagingResponse(
             hasNext = notices.hasNext(),
             data = notices.content.map { it.toDto() }

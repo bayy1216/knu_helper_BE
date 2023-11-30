@@ -17,6 +17,6 @@ fun Notice.toDto() = NoticeDto(
     title = this.title,
     content = this.content,
     site = this.site.name,
-    date = this.createdDate!!.toLocalDate(),
+    date = this.createdAt!!.toLocalDate(),
     url = this.url,
 )

@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface NoticeRepository : JpaRepository<Notice, Long> {
-    fun findAllBySiteInOrderByCreatedDateDesc(sites: List<Site>, pageable: Pageable): Page<Notice>
+    fun findAllBySiteInOrderByCreatedAtDesc(sites: List<Site>, pageable: Pageable): Page<Notice>
 }
