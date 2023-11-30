@@ -16,6 +16,7 @@ class MakeUser (
         val user = User(
             name = "test",
             userRole = UserRole.ROLE_ADMIN,
+            fcmToken = "test"
         )
         userRepository.save(user)
     }

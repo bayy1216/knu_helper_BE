@@ -14,6 +14,7 @@ class User(
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     val subscribedSite: MutableList<UserSubscribedSite> = mutableListOf(),
 
+    var fcmToken : String,
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,

@@ -1,4 +1,4 @@
-package com.reditus.knuhelper.dto.auth
+package com.reditus.knuhelper.dto.auth.response
 
 data class TokenResponse(
     val accessToken: String,
