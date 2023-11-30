@@ -1,4 +1,4 @@
-package com.reditus.knumate.domain.notice
+package com.reditus.knuhelper.domain.notice
 
 import org.springframework.data.jpa.repository.JpaRepository
 

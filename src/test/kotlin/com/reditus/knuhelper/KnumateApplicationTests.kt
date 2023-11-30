@@ -1,4 +1,4 @@
-package com.reditus.knumate
+package com.reditus.knuhelper
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

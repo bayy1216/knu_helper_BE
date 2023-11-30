@@ -1,4 +1,4 @@
-package com.reditus.knumate.core.handler
+package com.reditus.knuhelper.core.handler
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

@@ -1,1 +1,1 @@
-rootProject.name = "knumate"
+rootProject.name = "knuhelper"

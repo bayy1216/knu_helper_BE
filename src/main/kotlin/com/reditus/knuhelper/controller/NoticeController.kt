@@ -1,6 +1,6 @@
-package com.reditus.knumate.controller
+package com.reditus.knuhelper.controller
 
-import com.reditus.knumate.service.NoticeService
+import com.reditus.knuhelper.service.NoticeService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController

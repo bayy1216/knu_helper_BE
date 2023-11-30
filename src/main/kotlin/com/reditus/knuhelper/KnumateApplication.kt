@@ -1,4 +1,4 @@
-package com.reditus.knumate
+package com.reditus.knuhelper
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

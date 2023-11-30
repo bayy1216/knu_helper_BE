@@ -1,4 +1,4 @@
-package com.reditus.knumate.domain.common
+package com.reditus.knuhelper.domain.common
 
 import jakarta.persistence.EntityListeners
 import jakarta.persistence.MappedSuperclass

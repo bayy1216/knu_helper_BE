@@ -1,6 +1,6 @@
-package com.reditus.knumate.service
+package com.reditus.knuhelper.service
 
-import com.reditus.knumate.domain.notice.NoticeRepository
+import com.reditus.knuhelper.domain.notice.NoticeRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
