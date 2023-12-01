@@ -19,4 +19,21 @@ class User(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 ) : BaseTimeEntity() {
+
+    companion object{
+        fun fixture(
+            name: String = "사용자이름",
+            userRole: UserRole = UserRole.ROLE_ADMIN,
+            fcmToken: String = "사용자 fcm token",
+            id: Long? = null,
+        ) : User{
+            return User(
+                name = name,
+                userRole = userRole,
+                subscribedSite =  mutableListOf(),
+                fcmToken = fcmToken,
+                id = id
+            )
+        }
+    }
 }

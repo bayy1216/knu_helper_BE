@@ -18,4 +18,21 @@ class UserSubscribedSite(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 ) {
+    companion object{
+        fun fixture(
+            user: User,
+            site: Site = Site.KNU,
+            color: String = "#000000",
+            isAlarm: Boolean = true,
+            id: Long? = null,
+        ) : UserSubscribedSite{
+            return UserSubscribedSite(
+                user = user,
+                site = site,
+                color = color,
+                isAlarm = isAlarm,
+                id = id
+            )
+        }
+    }
 }
