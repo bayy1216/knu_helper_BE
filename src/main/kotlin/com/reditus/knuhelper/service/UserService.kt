@@ -1,7 +1,7 @@
 package com.reditus.knuhelper.service
 
 import com.reditus.knuhelper.domain.user.UserSubscribedSite
-import com.reditus.knuhelper.domain.user.UserSubsribedSiteRepository
+import com.reditus.knuhelper.domain.user.UserSubscribedSiteRepository
 import com.reditus.knuhelper.domain.user.UserRepository
 import com.reditus.knuhelper.dto.user.request.UserSubscribeSiteRequest
 import com.reditus.knuhelper.dto.user.response.UserSubscribedSiteResponse
@@ -16,10 +16,10 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 class UserService (
     private val userRepository: UserRepository,
-    private val userSubsribedSiteRepository: UserSubsribedSiteRepository
+    private val userSubscribedSiteRepository: UserSubscribedSiteRepository
 ){
     fun getUserFavoriteSite(userId: Long): UserSubscribedSiteResponse{
-        val sites = userSubsribedSiteRepository.findByUserId(userId)
+        val sites = userSubscribedSiteRepository.findByUserId(userId)
         return UserSubscribedSiteResponse(
             data = sites.map { it.toDto() }
         )
@@ -34,7 +34,7 @@ class UserService (
             color = request.color,
             isAlarm = request.isAlarm
         )
-        userSubsribedSiteRepository.save(site)
+        userSubscribedSiteRepository.save(site)
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 }
