@@ -37,4 +37,12 @@ class UserService (
         userSubscribedSiteRepository.save(site)
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
+
+    @Transactional
+    fun updateUserFavoriteSite(userId: Long, request: UserSubscribeSiteRequest): ResponseEntity<Any> {
+        val site = userSubscribedSiteRepository.findByUserIdAndSite(userId, request.site) ?: throw IllegalArgumentException("존재하지 않는 사이트입니다.")
+        site.color = request.color
+        site.isAlarm = request.isAlarm
+        return ResponseEntity.status(HttpStatus.OK).build()
+    }
 }
