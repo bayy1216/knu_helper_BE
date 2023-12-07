@@ -7,8 +7,9 @@ import jakarta.persistence.*
 class Notice(
     var title: String,
     var content: String,
-    var type: String,
-    var url: String,
+    val type: String,
+    @Column(unique = true)
+    val url: String,
     var views: Int,
 
     @Enumerated(EnumType.STRING)
