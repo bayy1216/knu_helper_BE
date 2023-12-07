@@ -3,6 +3,7 @@ package com.reditus.knuhelper.service
 import com.reditus.knuhelper.domain.user.UserSubscribedSite
 import com.reditus.knuhelper.domain.user.UserSubscribedSiteRepository
 import com.reditus.knuhelper.domain.user.UserRepository
+import com.reditus.knuhelper.dto.user.request.DeleteUserSubscribedSiteRequest
 import com.reditus.knuhelper.dto.user.request.UserSubscribeSiteRequest
 import com.reditus.knuhelper.dto.user.response.UserSubscribedSiteResponse
 import com.reditus.knuhelper.dto.user.response.toDto
@@ -43,6 +44,12 @@ class UserService (
         val site = userSubscribedSiteRepository.findByUserIdAndSite(userId, request.site) ?: throw IllegalArgumentException("존재하지 않는 사이트입니다.")
         site.color = request.color
         site.isAlarm = request.isAlarm
+        return ResponseEntity.status(HttpStatus.OK).build()
+    }
+
+    fun deleteUserFavoriteSite(userId: Long, request: DeleteUserSubscribedSiteRequest): ResponseEntity<Any> {
+        val site = userSubscribedSiteRepository.findByUserIdAndSite(userId, request.site) ?: throw IllegalArgumentException("존재하지 않는 사이트입니다.")
+        userSubscribedSiteRepository.delete(site)
         return ResponseEntity.status(HttpStatus.OK).build()
     }
 }
