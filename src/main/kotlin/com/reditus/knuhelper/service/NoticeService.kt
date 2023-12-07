@@ -11,6 +11,8 @@ import com.reditus.knuhelper.dto.notice.response.toDto
 import com.reditus.knuhelper.utils.findByIdOrThrow
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.awt.print.Pageable
@@ -43,5 +45,25 @@ class NoticeService(
         )
         noticeRepository.save(notice)
         return notice.id!!
+    }
+
+    @Transactional
+    //url로 공지 조회후 있으면 수정, 없으면 생성
+    fun insertNotice(request: CreateNoticeRequest): ResponseEntity<Any> {
+        val notice = noticeRepository.findByUrl(request.url)
+        notice?.let {
+            it.title = request.title
+            it.content = request.content
+            it.views = request.views
+            return ResponseEntity.status(HttpStatus.OK).build()
+        } ?: createNotice(request)
+        return ResponseEntity.status(HttpStatus.CREATED).build()
+    }
+
+    @Transactional
+    fun deleteNotice(noticeId: Long): ResponseEntity<Any> {
+        val notice = noticeRepository.findByIdOrThrow(noticeId)
+        noticeRepository.delete(notice)
+        return ResponseEntity.status(HttpStatus.OK).build()
     }
 }

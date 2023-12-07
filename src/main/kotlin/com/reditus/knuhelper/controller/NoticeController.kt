@@ -8,6 +8,7 @@ import com.reditus.knuhelper.dto.notice.request.CreateNoticeRequest
 import com.reditus.knuhelper.dto.notice.response.NoticeDto
 import com.reditus.knuhelper.service.NoticeService
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -31,5 +32,22 @@ class NoticeController(
             throw IllegalArgumentException("권한이 없습니다.")
         }
         return noticeService.createNotice(request)
+    }
+
+    @PostMapping("/insert")
+    fun insertNotice(@TokenUserRole role: UserRole, @RequestBody request: CreateNoticeRequest) : ResponseEntity<Any>{
+        if (role != UserRole.ROLE_ADMIN) {
+            throw IllegalArgumentException("권한이 없습니다.")
+        }
+        return noticeService.insertNotice(request)
+    }
+
+
+    @DeleteMapping
+    fun deleteNotice(@TokenUserRole role: UserRole, @RequestParam("noticeId") noticeId: Long) : ResponseEntity<Any>{
+        if (role != UserRole.ROLE_ADMIN) {
+            throw IllegalArgumentException("권한이 없습니다.")
+        }
+        return noticeService.deleteNotice(noticeId)
     }
 }
