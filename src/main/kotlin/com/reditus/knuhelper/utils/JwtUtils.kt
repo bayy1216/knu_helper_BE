@@ -3,7 +3,6 @@ package com.reditus.knuhelper.utils
 import com.reditus.knuhelper.domain.user.UserRole
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
@@ -55,8 +54,10 @@ class JwtUtils(
 
     fun validateToken(token: String): Boolean {
         return try {
-            Jwts.parser().verifyWith(key).build().parse(token)
-            true
+            val payload = extractClaims(token)
+            val now = Date()
+            val expiration = payload.expiration
+            expiration.after(now)
         } catch (e: Exception) {
             false
         }
@@ -64,8 +65,10 @@ class JwtUtils(
 
     fun validateRefreshToken(token: String): Boolean {
         return try {
-            val payload : Claims = Jwts.parser().verifyWith(key).build().parse(token).payload as Claims
-            return payload["isRefresh"] == true
+            val payload = extractClaims(token)
+            val now = Date()
+            val expiration = payload.expiration
+            return payload["isRefresh"] == true && expiration.after(now)
         } catch (e: Exception) {
             false
         }
@@ -73,7 +76,7 @@ class JwtUtils(
 
     fun extractId(token: String): Long {
         try {
-            val payload : Claims =  Jwts.parser().verifyWith(key).build().parse(token).payload as Claims
+            val payload = extractClaims(token)
             return payload.subject.toLong()
         } catch (e: Exception) {
             throw IllegalArgumentException("토큰이 유효하지 않습니다.")
@@ -82,14 +85,16 @@ class JwtUtils(
 
     fun extractUserRole(token: String): UserRole {
         try {
-            val payload : Claims =  Jwts.parser().verifyWith(key).build().parse(token).payload as Claims
+            val payload = extractClaims(token)
             return UserRole.valueOf(payload["userRole"].toString())
         } catch (e: Exception) {
             throw IllegalArgumentException("토큰이 유효하지 않습니다.")
         }
     }
 
-
+    private fun extractClaims(token: String): Claims{
+        return Jwts.parser().verifyWith(key).build().parse(token).payload as Claims
+    }
     companion object {
         // 15분
         const val ACCESS_TOKEN_EXPIRE_TIME = 1000L * 60L * 15L
