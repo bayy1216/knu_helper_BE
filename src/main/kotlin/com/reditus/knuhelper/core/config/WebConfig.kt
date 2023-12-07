@@ -7,9 +7,12 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
-class WebConfig : WebMvcConfigurer {
+class WebConfig(
+    private val tokenUserIdResolver: TokenUserIdResolver,
+    private val tokenUserRoleResolver: TokenUserRoleResolver,
+) : WebMvcConfigurer {
     override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
-        resolvers.add(TokenUserIdResolver())
-        resolvers.add(TokenUserRoleResolver())
+        resolvers.add(tokenUserIdResolver)
+        resolvers.add(tokenUserRoleResolver)
     }
 }

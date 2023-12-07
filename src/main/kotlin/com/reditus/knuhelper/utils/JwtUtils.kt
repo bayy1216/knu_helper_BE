@@ -72,13 +72,21 @@ class JwtUtils(
     }
 
     fun extractId(token: String): Long {
-        val payload : Claims =  Jwts.parser().verifyWith(key).build().parse(token).payload as Claims
-        return payload.subject.toLong()
+        try {
+            val payload : Claims =  Jwts.parser().verifyWith(key).build().parse(token).payload as Claims
+            return payload.subject.toLong()
+        } catch (e: Exception) {
+            throw IllegalArgumentException("토큰이 유효하지 않습니다.")
+        }
     }
 
     fun extractUserRole(token: String): UserRole {
-        val payload : Claims =  Jwts.parser().verifyWith(key).build().parse(token).payload as Claims
-        return UserRole.valueOf(payload["userRole"].toString())
+        try {
+            val payload : Claims =  Jwts.parser().verifyWith(key).build().parse(token).payload as Claims
+            return UserRole.valueOf(payload["userRole"].toString())
+        } catch (e: Exception) {
+            throw IllegalArgumentException("토큰이 유효하지 않습니다.")
+        }
     }
 
 
