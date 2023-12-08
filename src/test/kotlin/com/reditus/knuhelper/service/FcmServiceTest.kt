@@ -39,9 +39,9 @@ class FcmServiceTest @Autowired constructor(
         val user2 = User.fixture(name = "사용자2")
         userRepository.saveAll(listOf(user1, user2))
 
-        val notice1 = Notice.fixture("[신규공지]공지사항1", site = Site.KNU)
-        val notice2 = Notice.fixture("[전체공지]공지사항", site = Site.APPCHEM)
-        val notice3 = Notice.fixture("[학사공지]공지사항", site = Site.APPCHEM)
+        val notice1 = Notice.fixture("[신규공지]공지사항1", site = Site.KNU, url = "dsa")
+        val notice2 = Notice.fixture("[전체공지]공지사항", site = Site.APPCHEM, url = "dsaa")
+        val notice3 = Notice.fixture("[학사공지]공지사항", site = Site.APPCHEM, url = "dsaaa1")
         noticeRepository.saveAll(listOf(notice1, notice2, notice3))
 
         val user1SubscribedSite = UserSubscribedSite.fixture(
