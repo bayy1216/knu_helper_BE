@@ -3,6 +3,7 @@ package com.reditus.knuhelper.core.resolver
 import com.reditus.knuhelper.core.annotation.TokenUserId
 import com.reditus.knuhelper.core.annotation.TokenUserRole
 import com.reditus.knuhelper.domain.user.UserRole
+import com.reditus.knuhelper.utils.DataUtils
 import com.reditus.knuhelper.utils.JwtUtils
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
@@ -26,8 +27,8 @@ class TokenUserIdResolver(
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
     ): Any {
-        val authorization = webRequest.getHeader("Authorization")
-        val token = authorization?.split("Bearer ")?.get(1) ?: throw IllegalArgumentException("토큰이 존재하지않습니다.")
+        val authorization = webRequest.getHeader("Authorization") ?: throw IllegalArgumentException("Authorization 헤더가 존재하지 않습니다.")
+        val token = DataUtils.extractAuthorization(authorization)
         return jwtUtils.extractId(token)
     }
 }
@@ -47,8 +48,8 @@ class TokenUserRoleResolver(
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
     ): Any {
-        val authorization = webRequest.getHeader("Authorization")
-        val token = authorization?.split("Bearer ")?.get(1) ?: throw IllegalArgumentException("토큰이 존재하지않습니다.")
+        val authorization = webRequest.getHeader("Authorization") ?: throw IllegalArgumentException("Authorization 헤더가 존재하지 않습니다.")
+        val token = DataUtils.extractAuthorization(authorization)
         return jwtUtils.extractUserRole(token)
     }
 }
