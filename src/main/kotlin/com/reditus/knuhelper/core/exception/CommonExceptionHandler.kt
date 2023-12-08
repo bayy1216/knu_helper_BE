@@ -11,6 +11,28 @@ class CommonExceptionHandler(
 ) {
 
     @ExceptionHandler
+    fun illegalArgumentException(e: IllegalArgumentException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity(
+            ErrorResponse(
+                code = "COMMON-ILLEGAL-ARGUMENT-EXCEPTION",
+                message = e.message ?: "COMMON-ILLEGAL-ARGUMENT-EXCEPTION",
+            ),
+            HttpStatus.BAD_REQUEST
+        )
+    }
+
+    @ExceptionHandler
+    fun illegalStateException(e: IllegalStateException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity(
+            ErrorResponse(
+                code = "COMMON-ILLEGAL-STATE-EXCEPTION",
+                message = e.message ?: "COMMON-ILLEGAL-STATE-EXCEPTION",
+            ),
+            HttpStatus.INTERNAL_SERVER_ERROR
+        )
+    }
+
+    @ExceptionHandler
     fun runtimeException(e: RuntimeException): ResponseEntity<ErrorResponse> {
         return ResponseEntity(
             ErrorResponse(
