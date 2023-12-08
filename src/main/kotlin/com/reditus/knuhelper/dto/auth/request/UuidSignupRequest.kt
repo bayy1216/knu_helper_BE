@@ -1,6 +1,6 @@
 package com.reditus.knuhelper.dto.auth.request
 
-data class SignupRequest(
-    val name: String,
+data class UuidSignupRequest(
+    val uuid: String,
     val fcmToken : String,
 )
