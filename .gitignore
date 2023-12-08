@@ -39,3 +39,5 @@ out/
 /src/main/resources/application.yaml
 docker-compose.yaml
 /src/main/resources/serviceAccountKey.json
+
+postgres-data/
