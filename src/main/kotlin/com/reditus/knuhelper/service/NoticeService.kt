@@ -42,6 +42,7 @@ class NoticeService(
             url = request.url,
             views = request.views,
             site = request.site,
+            date = request.date
         )
         noticeRepository.save(notice)
         return notice.id!!
