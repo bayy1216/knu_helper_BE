@@ -27,27 +27,18 @@ class NoticeController(
         noticeService.getNotice(userId, page, size)
 
     @PostMapping
-    fun createNotice(@TokenUserRole role: UserRole, @RequestBody request: CreateNoticeRequest) : Long{
-        if (role != UserRole.ROLE_ADMIN) {
-            throw IllegalArgumentException("권한이 없습니다.")
-        }
-        return noticeService.createNotice(request)
-    }
+    fun createNotice(@TokenUserRole role: UserRole, @RequestBody request: CreateNoticeRequest) : Long =
+        noticeService.createNotice(role, request)
+
 
     @PostMapping("/insert")
-    fun insertNotice(@TokenUserRole role: UserRole, @RequestBody request: CreateNoticeRequest) : ResponseEntity<Any>{
-        if (role != UserRole.ROLE_ADMIN) {
-            throw IllegalArgumentException("권한이 없습니다.")
-        }
-        return noticeService.insertNotice(request)
-    }
+    fun insertNotice(@TokenUserRole role: UserRole, @RequestBody request: CreateNoticeRequest) : ResponseEntity<Any> =
+       noticeService.insertNotice(role, request)
+
 
 
     @DeleteMapping
-    fun deleteNotice(@TokenUserRole role: UserRole, @RequestParam("noticeId") noticeId: Long) : ResponseEntity<Any>{
-        if (role != UserRole.ROLE_ADMIN) {
-            throw IllegalArgumentException("권한이 없습니다.")
-        }
-        return noticeService.deleteNotice(noticeId)
-    }
+    fun deleteNotice(@TokenUserRole role: UserRole, @RequestParam("noticeId") noticeId: Long) : ResponseEntity<Any>
+        = noticeService.deleteNotice(role, noticeId)
+
 }

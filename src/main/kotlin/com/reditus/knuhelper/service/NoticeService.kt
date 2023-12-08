@@ -1,9 +1,11 @@
 package com.reditus.knuhelper.service
 
+import com.reditus.knuhelper.core.exception.ForbiddenJwtException
 import com.reditus.knuhelper.domain.notice.Notice
 import com.reditus.knuhelper.domain.notice.NoticeRepository
 import com.reditus.knuhelper.domain.notice.Site
 import com.reditus.knuhelper.domain.user.UserRepository
+import com.reditus.knuhelper.domain.user.UserRole
 import com.reditus.knuhelper.dto.common.PagingResponse
 import com.reditus.knuhelper.dto.notice.request.CreateNoticeRequest
 import com.reditus.knuhelper.dto.notice.response.NoticeDto
@@ -16,6 +18,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.awt.print.Pageable
+import java.nio.file.AccessDeniedException
 
 @Service
 @Transactional(readOnly = true)
@@ -34,7 +37,8 @@ class NoticeService(
     }
 
     @Transactional
-    fun createNotice(request: CreateNoticeRequest) : Long {
+    fun createNotice(role: UserRole, request: CreateNoticeRequest) : Long {
+        if(role != UserRole.ROLE_USER) throw AccessDeniedException("권한이 없습니다.")
         val notice = Notice(
             title = request.title,
             content = request.content,
@@ -49,19 +53,21 @@ class NoticeService(
 
     @Transactional
     //url로 공지 조회후 있으면 수정, 없으면 생성
-    fun insertNotice(request: CreateNoticeRequest): ResponseEntity<Any> {
+    fun insertNotice(role: UserRole, request: CreateNoticeRequest): ResponseEntity<Any> {
+        if(role != UserRole.ROLE_USER) throw AccessDeniedException("권한이 없습니다.")
         val notice = noticeRepository.findByUrl(request.url)
         notice?.let {
             it.title = request.title
             it.content = request.content
             it.views = request.views
             return ResponseEntity.status(HttpStatus.OK).build()
-        } ?: createNotice(request)
+        } ?: createNotice(role, request)
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 
     @Transactional
-    fun deleteNotice(noticeId: Long): ResponseEntity<Any> {
+    fun deleteNotice(role: UserRole, noticeId: Long): ResponseEntity<Any> {
+        if(role != UserRole.ROLE_USER) throw AccessDeniedException("권한이 없습니다.")
         val notice = noticeRepository.findByIdOrThrow(noticeId)
         noticeRepository.delete(notice)
         return ResponseEntity.status(HttpStatus.OK).build()
