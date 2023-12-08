@@ -29,7 +29,7 @@ class User(
             name: String = "사용자이름",
             email: String? = "사용자 이메일",
             password: String? = "사용자 비밀번호",
-            userRole: UserRole = UserRole.ROLE_ADMIN,
+            userRole: UserRole = UserRole.ADMIN,
             fcmToken: String = "사용자 fcm token",
             id: Long? = null,
         ) : User{

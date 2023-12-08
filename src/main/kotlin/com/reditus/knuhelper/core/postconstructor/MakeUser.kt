@@ -14,7 +14,7 @@ class MakeUser (
     fun init(){
         val user = User.fixture(
             name = "test",
-            userRole = UserRole.ROLE_ADMIN,
+            userRole = UserRole.ADMIN,
             fcmToken = "test"
         )
         userRepository.save(user)

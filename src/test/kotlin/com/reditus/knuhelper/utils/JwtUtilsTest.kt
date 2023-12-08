@@ -9,7 +9,7 @@ class JwtUtilsTest{
 
     @Test
     fun 토큰이_정상적으로_생성된다(){
-        val token = jwtUtils.createToken(1, UserRole.ROLE_ADMIN)
+        val token = jwtUtils.createToken(1, UserRole.ADMIN)
         assertNotNull(token.accessToken)
         assertNotNull(token.refreshToken)
 
@@ -17,7 +17,7 @@ class JwtUtilsTest{
         val userRole = jwtUtils.extractUserRole(token.accessToken)
 
         assertEquals(1, id)
-        assertEquals(UserRole.ROLE_ADMIN, userRole)
+        assertEquals(UserRole.ADMIN, userRole)
         //assertEquals(true, jwtUtils.validateToken(token.accessToken))
         assertEquals(false, jwtUtils.validateRefreshToken(token.accessToken))
         assertEquals(true, jwtUtils.validateRefreshToken(token.refreshToken))
