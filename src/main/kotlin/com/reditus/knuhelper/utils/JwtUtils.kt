@@ -65,6 +65,12 @@ class JwtUtils(
         return payload["isRefresh"] == true
     }
 
+    fun extractIdAndUserRole(token: String): Pair<Long, UserRole> {
+        val payload = extractClaims(token)
+        validateClaims(payload)
+        return Pair(payload.subject.toLong(), UserRole.valueOf(payload["userRole"].toString()))
+    }
+
     fun extractId(token: String): Long {
         val payload = extractClaims(token)
         validateClaims(payload)
