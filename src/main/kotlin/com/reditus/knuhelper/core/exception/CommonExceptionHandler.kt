@@ -22,6 +22,17 @@ class CommonExceptionHandler(
     }
 
     @ExceptionHandler
+    fun accessDeniedException(e: AccessDeniedException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity(
+            ErrorResponse(
+                code = "COMMON-ACCESS-DENIED-EXCEPTION",
+                message = e.message ?: "COMMON-ACCESS-DENIED-EXCEPTION",
+            ),
+            HttpStatus.FORBIDDEN
+        )
+    }
+
+    @ExceptionHandler
     fun illegalStateException(e: IllegalStateException): ResponseEntity<ErrorResponse> {
         return ResponseEntity(
             ErrorResponse(
