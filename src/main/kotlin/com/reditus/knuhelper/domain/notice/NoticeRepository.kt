@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 interface NoticeRepository : JpaRepository<Notice, Long> {
     fun findAllBySiteInOrderByCreatedAtDesc(sites: List<Site>, pageable: Pageable): Page<Notice>
 
-    fun findAllByModifiedAtAfter(modifiedAt: LocalDateTime): List<Notice>
+    fun findAllByCreatedAtAfter(createdAt: LocalDateTime): List<Notice>
 
     fun findByUrl(url: String): Notice?
 }
