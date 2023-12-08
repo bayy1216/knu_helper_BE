@@ -10,6 +10,8 @@ data class NoticeDto(
     val site: String,
     val date: LocalDate,
     val url: String,
+    val views: Int,
+    val type: String
 )
 
 fun Notice.toDto() = NoticeDto(
@@ -17,6 +19,8 @@ fun Notice.toDto() = NoticeDto(
     title = this.title,
     content = this.content,
     site = this.site.name,
-    date = this.createdAt!!.toLocalDate(),
+    date = this.date,
     url = this.url,
+    views = this.views,
+    type = this.type
 )
