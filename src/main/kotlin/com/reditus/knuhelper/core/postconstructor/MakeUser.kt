@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 class MakeUser (
     private val userRepository: UserRepository,
 ){
-    @PostConstruct
+    //@PostConstruct
     fun init(){
         val user = User.fixture(
             name = "test",
