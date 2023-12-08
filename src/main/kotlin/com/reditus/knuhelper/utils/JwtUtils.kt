@@ -1,5 +1,7 @@
 package com.reditus.knuhelper.utils
 
+import com.reditus.knuhelper.core.exception.ExpiredJwtException
+import com.reditus.knuhelper.core.exception.InvalidJwtException
 import com.reditus.knuhelper.domain.user.UserRole
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
@@ -52,48 +54,43 @@ class JwtUtils(
             .compact()
     }
 
-    fun validateToken(token: String): Boolean {
-        return try {
-            val payload = extractClaims(token)
-            val now = Date()
-            val expiration = payload.expiration
-            expiration.after(now)
-        } catch (e: Exception) {
-            false
-        }
-    }
+//    fun validateToken(token: String) {
+//        val payload = extractClaims(token)
+//        validateClaims(payload)
+//    }
 
     fun validateRefreshToken(token: String): Boolean {
-        return try {
-            val payload = extractClaims(token)
-            val now = Date()
-            val expiration = payload.expiration
-            return payload["isRefresh"] == true && expiration.after(now)
-        } catch (e: Exception) {
-            false
-        }
+        val payload = extractClaims(token)
+        validateClaims(payload)
+        return payload["isRefresh"] == true
     }
 
     fun extractId(token: String): Long {
-        try {
-            val payload = extractClaims(token)
-            return payload.subject.toLong()
-        } catch (e: Exception) {
-            throw IllegalArgumentException("토큰이 유효하지 않습니다.")
-        }
+        val payload = extractClaims(token)
+        validateClaims(payload)
+        return payload.subject.toLong()
     }
 
     fun extractUserRole(token: String): UserRole {
-        try {
-            val payload = extractClaims(token)
-            return UserRole.valueOf(payload["userRole"].toString())
-        } catch (e: Exception) {
-            throw IllegalArgumentException("토큰이 유효하지 않습니다.")
-        }
+        val payload = extractClaims(token)
+        validateClaims(payload)
+        return UserRole.valueOf(payload["userRole"].toString())
     }
 
     private fun extractClaims(token: String): Claims{
-        return Jwts.parser().verifyWith(key).build().parse(token).payload as Claims
+        try{
+            return Jwts.parser().verifyWith(key).build().parse(token).payload as Claims
+        }catch (e: Exception){
+            throw InvalidJwtException("토큰이 유효하지 않습니다.")
+        }
+    }
+
+    private fun validateClaims(claims: Claims){
+        val now = Date()
+        val expiration = claims.expiration
+        if (expiration.before(now)) {
+            throw ExpiredJwtException("토큰이 만료되었습니다.")
+        }
     }
     companion object {
         // 15분
