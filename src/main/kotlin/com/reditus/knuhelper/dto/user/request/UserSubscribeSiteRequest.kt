@@ -5,5 +5,5 @@ import com.reditus.knuhelper.domain.notice.Site
 data class UserSubscribeSiteRequest(
     val site: Site,
     val color: String,
-    val isAlarm: Boolean
+    val alarm: Boolean
 )

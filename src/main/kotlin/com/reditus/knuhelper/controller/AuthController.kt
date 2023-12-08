@@ -5,10 +5,7 @@ import com.reditus.knuhelper.dto.auth.response.AccessTokenResponse
 import com.reditus.knuhelper.dto.auth.response.TokenResponse
 import com.reditus.knuhelper.service.AuthService
 import com.reditus.knuhelper.utils.DataUtils
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestHeader
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.context.request.NativeWebRequest
 
 @RequestMapping("/auth")
@@ -17,7 +14,7 @@ class AuthController(
     private val authService: AuthService,
 ) {
     @PostMapping("/signup/v1")
-    fun uuidSignup(request: UuidSignupRequest): TokenResponse =
+    fun uuidSignup(@RequestBody request: UuidSignupRequest): TokenResponse =
         authService.uuidSignup(request)
 
     @PostMapping("/login/v1")

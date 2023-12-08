@@ -34,7 +34,7 @@ class NoticeService(
 
     @Transactional
     fun createNotice(role: UserRole, request: CreateNoticeRequest) : Long {
-        if(role != UserRole.USER) throw AccessDeniedException("권한이 없습니다.")
+        if(role != UserRole.ADMIN) throw AccessDeniedException("권한이 없습니다.")
         val notice = Notice(
             title = request.title,
             content = request.content,
