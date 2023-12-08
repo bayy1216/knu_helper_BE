@@ -50,7 +50,7 @@ class NoticeService(
     @Transactional
     //url로 공지 조회후 있으면 수정, 없으면 생성
     fun insertNotice(role: UserRole, request: CreateNoticeRequest): ResponseEntity<Any> {
-        if(role != UserRole.USER) throw AccessDeniedException("권한이 없습니다.")
+        if(role != UserRole.ADMIN) throw AccessDeniedException("권한이 없습니다.")
         val notice = noticeRepository.findByUrl(request.url)
         notice?.let {
             it.title = request.title
