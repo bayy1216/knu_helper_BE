@@ -1,5 +1,6 @@
 package com.reditus.knuhelper.dto.notice.response
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.reditus.knuhelper.domain.notice.Notice
 import java.time.LocalDate
 
@@ -8,6 +9,7 @@ data class NoticeDto(
     val title: String,
     val content: String,
     val site: String,
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     val date: LocalDate,
     val url: String,
     val views: Int,
