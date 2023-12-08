@@ -6,7 +6,11 @@ import jakarta.persistence.*
 @Entity
 @Table(name = "users")
 class User(
-    var name: String,
+    var nickname: String,
+
+    var email: String?,
+
+    var password: String?,
 
     @Enumerated(EnumType.STRING)
     val userRole: UserRole,
@@ -23,12 +27,16 @@ class User(
     companion object{
         fun fixture(
             name: String = "사용자이름",
+            email: String? = "사용자 이메일",
+            password: String? = "사용자 비밀번호",
             userRole: UserRole = UserRole.ROLE_ADMIN,
             fcmToken: String = "사용자 fcm token",
             id: Long? = null,
         ) : User{
             return User(
-                name = name,
+                nickname = name,
+                email = email,
+                password = password,
                 userRole = userRole,
                 subscribedSite =  mutableListOf(),
                 fcmToken = fcmToken,
