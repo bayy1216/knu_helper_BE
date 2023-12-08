@@ -10,4 +10,6 @@ interface UserRepository : JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.subscribedSite")
     fun findAllWithSubscribedSites(): List<User>
+
+    fun findByNickname(nickname: String): User?
 }
