@@ -16,7 +16,7 @@ class JwtExceptionHandler() {
                 code = "INVALID-JWT-EXCEPTION",
                 message = e.message ?: "INVALID-JWT-EXCEPTION",
             ),
-            HttpStatus.BAD_REQUEST
+            HttpStatus.UNAUTHORIZED
         )
     }
 
