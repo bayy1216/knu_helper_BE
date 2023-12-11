@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.time.LocalDateTime
 
 interface NoticeRepository : JpaRepository<Notice, Long> {
-    fun findAllBySiteInOrderByCreatedAtDesc(sites: List<Site>, pageable: Pageable): Page<Notice>
+    fun findAllBySiteInOrderByDateDescViewsAsc(sites: List<Site>, pageable: Pageable): Page<Notice>
 
     fun findAllByCreatedAtAfter(createdAt: LocalDateTime): List<Notice>
 

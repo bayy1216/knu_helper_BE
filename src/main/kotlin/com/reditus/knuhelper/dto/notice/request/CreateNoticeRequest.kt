@@ -6,7 +6,6 @@ import java.time.LocalDate
 
 data class CreateNoticeRequest(
     val title: String,
-    val content: String,
     val type: String,
     val url: String,
     val views: Int,

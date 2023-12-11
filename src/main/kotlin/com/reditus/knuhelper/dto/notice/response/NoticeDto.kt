@@ -7,7 +7,6 @@ import java.time.LocalDate
 data class NoticeDto(
     val id: Long,
     val title: String,
-    val content: String,
     val site: String,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     val date: LocalDate,
@@ -19,7 +18,6 @@ data class NoticeDto(
 fun Notice.toDto() = NoticeDto(
     id = this.id!!,
     title = this.title,
-    content = this.content,
     site = this.site.name,
     date = this.date,
     url = this.url,
