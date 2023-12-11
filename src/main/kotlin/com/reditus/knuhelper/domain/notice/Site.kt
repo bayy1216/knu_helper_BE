@@ -55,8 +55,14 @@ enum class Site(val koreaName: String, val category: SiteCategory) {
     KNUAGEC("식품자원경제학과", SiteCategory.AGRICULTURE),
     AIFM("농산업학과", SiteCategory.AGRICULTURE),
     ////////////////////////////
+    MUSIC("음악학과", SiteCategory.ART),
+    KMUSIC("국악학과", SiteCategory.ART),
+    ARTS("미술학과", SiteCategory.ART),
+    VCD("디자인학과", SiteCategory.ART),
+
+    ////////////////////////////
     EDU("교육학과", SiteCategory.EDUCATION),
-    KORED("국어교육과", SiteCategory.EDUCATION),
+    KOREDU("국어교육과", SiteCategory.EDUCATION),
     ENGED("영어교육과", SiteCategory.EDUCATION),
     GEREDU("독어교육전공", SiteCategory.EDUCATION),
     FREDU("불어교육전공", SiteCategory.EDUCATION),
@@ -75,7 +81,7 @@ enum class Site(val koreaName: String, val category: SiteCategory) {
     VETERINARY("수의과대학", SiteCategory.VETERINARY),
     KNUCHILD("아동학부", SiteCategory.LIFESCIENCE),
     FASHION("의류학과", SiteCategory.LIFESCIENCE),
-    FSN("식품영양학과", SiteCategory.LIFESCIENCE),
+    FSNU("식품영양학과", SiteCategory.LIFESCIENCE),
     ////////////////////////////
     NURSE("간호학과", SiteCategory.NURSE),
     ////////////////////////////
@@ -95,7 +101,7 @@ enum class Site(val koreaName: String, val category: SiteCategory) {
     PMEATKNU("정밀기계공학과", SiteCategory.SCIENCETECH),
     AUTOMOBILE("자동차공학부", SiteCategory.SCIENCETECH),
     SE("소프트웨어학과", SiteCategory.SCIENCETECH),
-    CHEMENG("에너지화학공학전공", SiteCategory.SCIENCETECH),
+    CHEMENGSJC("에너지화학공학전공", SiteCategory.SCIENCETECH),
     FFSI("식품외식산업학과", SiteCategory.SCIENCETECH),
     TEXTILE("섬유공학전공", SiteCategory.SCIENCETECH),
     STYLE("패션디자인전공", SiteCategory.SCIENCETECH),
