@@ -7,7 +7,6 @@ import java.time.LocalDate
 @Entity
 class Notice(
     var title: String,
-    var content: String,
     val type: String,
     @Column(unique = true, length = 512)
     val url: String,
@@ -25,7 +24,6 @@ class Notice(
     companion object{
         fun fixture(
             title: String = "제목",
-            content: String = "본문",
             type: String = "일반공지",
             url: String = "knu.ac.kr",
             views: Int = 0,
@@ -35,7 +33,6 @@ class Notice(
         ) : Notice{
             return Notice(
                 title = title,
-                content = content,
                 type = type,
                 url = url,
                 views = views,
