@@ -62,7 +62,7 @@ class NoticeService(
 
     @Transactional
     fun deleteNotice(role: UserRole, noticeId: Long): ResponseEntity<Any> {
-        if(role != UserRole.USER) throw AccessDeniedException("권한이 없습니다.")
+        if(role != UserRole.ADMIN) throw AccessDeniedException("권한이 없습니다.")
         val notice = noticeRepository.findByIdOrThrow(noticeId)
         noticeRepository.delete(notice)
         return ResponseEntity.status(HttpStatus.OK).build()
