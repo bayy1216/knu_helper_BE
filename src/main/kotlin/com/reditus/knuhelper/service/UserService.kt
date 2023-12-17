@@ -50,6 +50,7 @@ class UserService (
         return ResponseEntity.status(HttpStatus.OK).build()
     }
 
+    @Transactional
     fun deleteUserFavoriteSite(userId: Long, request: DeleteUserSubscribedSiteRequest): ResponseEntity<Any> {
         val reqSite = Site.getSiteByKoreaName(request.site)
         val site = userSubscribedSiteRepository.findByUserIdAndSite(userId, reqSite) ?: throw IllegalArgumentException("존재하지 않는 사이트입니다.")
