@@ -1,5 +1,6 @@
 package com.reditus.knuhelper.service
 
+import com.reditus.knuhelper.domain.notice.Site
 import com.reditus.knuhelper.domain.user.UserSubscribedSite
 import com.reditus.knuhelper.domain.user.UserSubscribedSiteRepository
 import com.reditus.knuhelper.domain.user.UserRepository
@@ -28,10 +29,11 @@ class UserService (
 
     @Transactional
     fun addUserFavoriteSite(userId: Long, request: UserSubscribeSiteRequest): ResponseEntity<Any> {
+        val reqSite = Site.getSiteByKoreaName(request.site)
         val user = userRepository.findByIdOrThrow(userId)
         val site = UserSubscribedSite(
             user = user,
-            site = request.site,
+            site = reqSite,
             color = request.color,
             isAlarm = request.alarm
         )
@@ -41,14 +43,16 @@ class UserService (
 
     @Transactional
     fun updateUserFavoriteSite(userId: Long, request: UserSubscribeSiteRequest): ResponseEntity<Any> {
-        val site = userSubscribedSiteRepository.findByUserIdAndSite(userId, request.site) ?: throw IllegalArgumentException("존재하지 않는 사이트입니다.")
+        val reqSite = Site.getSiteByKoreaName(request.site)
+        val site = userSubscribedSiteRepository.findByUserIdAndSite(userId, reqSite) ?: throw IllegalArgumentException("존재하지 않는 사이트입니다.")
         site.color = request.color
         site.isAlarm = request.alarm
         return ResponseEntity.status(HttpStatus.OK).build()
     }
 
     fun deleteUserFavoriteSite(userId: Long, request: DeleteUserSubscribedSiteRequest): ResponseEntity<Any> {
-        val site = userSubscribedSiteRepository.findByUserIdAndSite(userId, request.site) ?: throw IllegalArgumentException("존재하지 않는 사이트입니다.")
+        val reqSite = Site.getSiteByKoreaName(request.site)
+        val site = userSubscribedSiteRepository.findByUserIdAndSite(userId, reqSite) ?: throw IllegalArgumentException("존재하지 않는 사이트입니다.")
         userSubscribedSiteRepository.delete(site)
         return ResponseEntity.status(HttpStatus.OK).build()
     }

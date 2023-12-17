@@ -8,13 +8,13 @@ data class UserSubscribedSiteResponse(
 )
 
 data class UserSubscribedSiteDto(
-    val site: Site,
+    val site: String,
     val color: String,
     val isAlarm: Boolean
 )
 
 fun UserSubscribedSite.toDto() = UserSubscribedSiteDto(
-    site = this.site,
+    site = this.site.koreaName,
     color = this.color,
     isAlarm = this.isAlarm
 )

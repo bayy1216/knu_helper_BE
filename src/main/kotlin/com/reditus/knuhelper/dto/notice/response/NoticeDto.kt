@@ -18,7 +18,7 @@ data class NoticeDto(
 fun Notice.toDto() = NoticeDto(
     id = this.id!!,
     title = this.title,
-    site = this.site.name,
+    site = this.site.koreaName,
     date = this.date,
     url = this.url,
     views = this.views,

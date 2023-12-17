@@ -119,5 +119,11 @@ enum class Site(val koreaName: String, val category: SiteCategory) {
     KNUCUBE("KNUCUBE", SiteCategory.KNU),
     GLOBAL("국제교류처", SiteCategory.KNU),
     ////////////////////////////
-    SW("소프트웨어교육원", SiteCategory.SW),
+    SW("소프트웨어교육원", SiteCategory.SW);
+
+    companion object{
+        fun getSiteByKoreaName(koreaName: String): Site {
+            return entries.find { it.koreaName == koreaName } ?: throw IllegalArgumentException("존재하지 않는 사이트입니다.")
+        }
+    }
 }

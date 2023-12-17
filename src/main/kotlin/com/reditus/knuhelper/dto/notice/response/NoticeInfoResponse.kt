@@ -8,15 +8,13 @@ data class NoticeInfoResponse(
 )
 
 data class SiteInfo(
-    val site: Site,
-    val siteKorean : String,
+    val site: String,
     val siteCategoryKorean: String,
 )
 
 fun Site.toDto() : SiteInfo{
     return SiteInfo(
-        site = this,
-        siteKorean = this.koreaName,
+        site = this.koreaName,
         siteCategoryKorean = this.category.koreaName
     )
 }
