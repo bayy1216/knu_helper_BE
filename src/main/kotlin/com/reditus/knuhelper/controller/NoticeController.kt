@@ -13,12 +13,12 @@ import com.reditus.knuhelper.service.NoticeService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import java.lang.IllegalArgumentException
 
 @RestController
 @RequestMapping("/notice")
@@ -40,9 +40,9 @@ class NoticeController(
 
 
 
-    @DeleteMapping
-    fun deleteNotice(@TokenUserRole role: UserRole, @RequestParam("noticeId") noticeId: Long) : ResponseEntity<Any>
-        = noticeService.deleteNotice(role, noticeId)
+    @DeleteMapping("/{id}")
+    fun deleteNotice(@TokenUserRole role: UserRole, @PathVariable("id") id: Long) : ResponseEntity<Any>
+        = noticeService.deleteNotice(role, id)
 
     @GetMapping("/site-info")
     fun getSiteInfo() : NoticeInfoResponse{
