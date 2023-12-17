@@ -31,7 +31,16 @@ class CommonExceptionHandler(
             HttpStatus.FORBIDDEN
         )
     }
-
+    @ExceptionHandler
+    fun invalidJwtException(e: InvalidJwtException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity(
+            ErrorResponse(
+                code = "INVALID-JWT-EXCEPTION",
+                message = e.message ?: "INVALID-JWT-EXCEPTION",
+            ),
+            HttpStatus.UNAUTHORIZED
+        )
+    }
     @ExceptionHandler
     fun illegalStateException(e: IllegalStateException): ResponseEntity<ErrorResponse> {
         return ResponseEntity(
@@ -42,7 +51,16 @@ class CommonExceptionHandler(
             HttpStatus.INTERNAL_SERVER_ERROR
         )
     }
-
+    @ExceptionHandler
+    fun expiredJwtException(e: ExpiredJwtException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity(
+            ErrorResponse(
+                code = "EXPIRED-JWT-EXCEPTION",
+                message = e.message ?: "EXPIRED-JWT-EXCEPTION",
+            ),
+            HttpStatus.UNAUTHORIZED
+        )
+    }
     @ExceptionHandler
     fun runtimeException(e: RuntimeException): ResponseEntity<ErrorResponse> {
         return ResponseEntity(
