@@ -16,8 +16,10 @@ class FcmService(
 ) {
 
     fun sendNoticeMessage(startTime: LocalDateTime, endTime: LocalDateTime): Int{
-        val users = userRepository.findAllWithSubscribedSites()
+
         val notices = noticeRepository.findAllByCreatedAtAfter(startTime)
+        val sites = notices.map { notice -> notice.site }.distinct()
+        val users = userRepository.findAllWithIsAlarmSubscribedSites(sites)
         var count = 0
         users.forEach{ user ->
             val subscribedSites = user.subscribedSite.filter { site -> site.isAlarm }.map { site -> site.site }
