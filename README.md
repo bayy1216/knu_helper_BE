@@ -3,8 +3,8 @@
 firebase의 일당 50000회 읽기로는 하루사용자가 만약 100명 이상이라면 잠재적으로 장애가 생길 수 있는 상황이였다.
 <br>
 이를 해결하기위해 간단한 백엔드 API 서버를 구축하였다.
+![image](https://github.com/bayy1216/knu_helper_BE/assets/78216059/fcea46ef-957a-4cbc-8c46-88b65042f8de)
 
-<img width="813" alt="image" src="https://github.com/bayy1216/knu_helper_BE/assets/78216059/5c224ba2-63bc-4f9b-b693-6b2df3c9b006">
 
 ## 2. 배포 링크
 > APP repositroy : https://github.com/bayy1216/knu_helper
