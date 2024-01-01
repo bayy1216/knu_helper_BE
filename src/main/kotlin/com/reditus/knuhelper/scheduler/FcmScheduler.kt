@@ -14,6 +14,8 @@ class FcmScheduler(
     fun sendNotice() {
         val endTime = LocalDateTime.now()
         val startTime = endTime.minusMinutes(30)
-        fcmService.sendNoticeMessage(startTime, endTime)
+        println("startTime $startTime, endTime $endTime")
+        val send = fcmService.sendNoticeMessage(startTime, endTime)
+        println("send $send")
     }
 }
