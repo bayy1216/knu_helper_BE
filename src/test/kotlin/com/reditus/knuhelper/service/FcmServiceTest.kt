@@ -49,12 +49,17 @@ class FcmServiceTest @Autowired constructor(
             site = Site.APPCHEM,
             isAlarm = true,
         )
+        val user1SubscribedSite111 = UserSubscribedSite.fixture(
+            user = user1,
+            site = Site.KNU,
+            isAlarm = true,
+        )
         val user2SubscribedSite = UserSubscribedSite.fixture(
             user = user2,
             site = Site.AIC,
             isAlarm = true,
         )
-        userSubscribedSiteRepository.saveAll(listOf(user1SubscribedSite, user2SubscribedSite))
+        userSubscribedSiteRepository.saveAll(listOf(user1SubscribedSite, user2SubscribedSite,user1SubscribedSite111))
 
         val now = LocalDateTime.now()
         val count = fcmService.sendNoticeMessage(now.minusHours(1), now)
@@ -68,6 +73,7 @@ class FakeFcmUtils : FcmUtils() {
         body: String,
         token: String,
     ): String {
+        println("--send message to $token $title-- \n$body")
         return "--send message to $token $title-- \n$body"
     }
 }

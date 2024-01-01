@@ -29,9 +29,17 @@ class FcmService(
             }
             if(filteredNotice.isEmpty()) return@forEach
 
-            val noticeTitles = filteredNotice.map { n -> n.title }
-            val title = "${noticeTitles.size}개의 새로운 공지사항이 있습니다."
-            val body = noticeTitles.reduce { acc, s -> "$acc\n$s" }
+            val title = "${filteredNotice.size}개의 새로운 공지사항이 등록되었습니다."
+            val groupBySiteNotice = filteredNotice.groupBy { it.site }
+            var body = ""
+            groupBySiteNotice.keys.forEach { site ->
+                val siteNoticeList = groupBySiteNotice[site]!!
+                body += "${site.koreaName}\n"
+                siteNoticeList.forEach { notice ->
+                    body += "  ${notice.title}\n"
+                }
+            }
+
             fcmUtils.sendSingleMessage(title, body, user.fcmToken)
             count++
         }
