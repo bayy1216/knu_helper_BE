@@ -26,8 +26,16 @@ class NoticeController(
     private val noticeService: NoticeService,
 ) {
     @GetMapping
-    fun getNotice(@TokenUserId userId: Long, @RequestParam("page") page:Int, @RequestParam("size", required = false) size :Int = 20) : PagingResponse<NoticeDto> =
-        noticeService.getNotice(userId, page, size)
+    fun getNotice(
+        @TokenUserId userId: Long,
+        @RequestParam("page") page:Int,
+        @RequestParam("size", required = false) size :Int = 20,
+        @RequestParam("title", required = false) title :String? = null,
+        @RequestParam("site", required = false) site :String? = null,
+    ) : PagingResponse<NoticeDto> =
+        noticeService.getNotice(userId, page, size,title, site)
+
+
 
     @PostMapping
     fun createNotice(@TokenUserRole role: UserRole, @RequestBody request: CreateNoticeRequest) : Long =
@@ -36,13 +44,13 @@ class NoticeController(
 
     @PostMapping("/insert")
     fun insertNotice(@TokenUserRole role: UserRole, @RequestBody request: CreateNoticeRequest) : ResponseEntity<Any> =
-       noticeService.insertNotice(role, request)
+        noticeService.insertNotice(role, request)
 
 
 
     @DeleteMapping("/{id}")
     fun deleteNotice(@TokenUserRole role: UserRole, @PathVariable("id") id: Long) : ResponseEntity<Any>
-        = noticeService.deleteNotice(role, id)
+            = noticeService.deleteNotice(role, id)
 
     @GetMapping("/site-info")
     fun getSiteInfo() : NoticeInfoResponse{

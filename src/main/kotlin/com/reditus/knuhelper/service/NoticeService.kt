@@ -2,6 +2,7 @@ package com.reditus.knuhelper.service
 
 import com.reditus.knuhelper.domain.notice.Notice
 import com.reditus.knuhelper.domain.notice.NoticeRepository
+import com.reditus.knuhelper.domain.notice.Site
 import com.reditus.knuhelper.domain.user.UserRepository
 import com.reditus.knuhelper.domain.user.UserRole
 import com.reditus.knuhelper.dto.common.PagingResponse
@@ -22,10 +23,14 @@ class NoticeService(
     private val userRepository: UserRepository,
     private val noticeRepository: NoticeRepository,
 ) {
-    fun getNotice(userId: Long, page:Int, pageSize: Int): PagingResponse<NoticeDto> {
+    fun getNotice(userId: Long, page:Int, pageSize: Int, title: String?, site: String?): PagingResponse<NoticeDto> {
         val user = userRepository.findByIdWithSubscribedSites(userId) ?: throw IllegalArgumentException("존재하지 않는 유저입니다.")
-        val sites = user.subscribedSite.map { it.site }
-        val notices = noticeRepository.findAllBySiteInOrderByDateDescViewsAsc(sites.toList(), PageRequest.of(page, pageSize))
+        val sites = site?.let { listOf(Site.getSiteByKoreaName(site)) } ?: user.subscribedSite.map { it.site }
+        val notices = if(title == null) {
+            noticeRepository.findAllBySiteInOrderByDateDescViewsAsc(sites, PageRequest.of(page, pageSize))
+        } else {
+            noticeRepository.findAllBySiteInAndTitleContainingOrderByDateDescViewsAsc(sites, title, PageRequest.of(page, pageSize))
+        }
         return PagingResponse(
             hasNext = notices.hasNext(),
             data = notices.content.map { it.toDto() }
