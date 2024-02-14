@@ -33,7 +33,7 @@ class NoticeService(
         }
         return PagingResponse(
             hasNext = notices.hasNext(),
-            data = notices.content.map { it.toDto() }
+            data = notices.content.toDto()
         )
     }
 

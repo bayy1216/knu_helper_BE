@@ -23,7 +23,7 @@ class UserService (
     fun getUserFavoriteSite(userId: Long): UserSubscribedSiteResponse{
         val sites = userSubscribedSiteRepository.findByUserId(userId)
         return UserSubscribedSiteResponse(
-            data = sites.map { it.toDto() }
+            data = sites.toDto()
         )
     }
 

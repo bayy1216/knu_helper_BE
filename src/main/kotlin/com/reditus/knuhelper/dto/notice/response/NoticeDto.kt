@@ -24,3 +24,5 @@ fun Notice.toDto() = NoticeDto(
     views = this.views,
     type = this.type
 )
+
+fun List<Notice>.toDto() = this.map(Notice::toDto)

@@ -18,3 +18,5 @@ fun UserSubscribedSite.toDto() = UserSubscribedSiteDto(
     color = this.color,
     isAlarm = this.isAlarm
 )
+
+fun List<UserSubscribedSite>.toDto() = this.map(UserSubscribedSite::toDto)
