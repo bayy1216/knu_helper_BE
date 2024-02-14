@@ -1,6 +1,7 @@
 package com.reditus.knuhelper.domain.user
 
 import com.reditus.knuhelper.domain.common.BaseTimeEntity
+import com.reditus.knuhelper.domain.notice.Site
 import jakarta.persistence.*
 
 @Entity
@@ -24,6 +25,12 @@ class User(
     val id: Long? = null,
 ) : BaseTimeEntity() {
 
+    /**
+     * 사용자가 알람을 받기로 한 사이트들을 반환한다.
+     */
+    fun getAlarmSites() : List<Site>{
+        return subscribedSite.filter { site -> site.isAlarm }.map { subscribedSite -> subscribedSite.site }
+    }
     companion object{
         fun fixture(
             name: String = "사용자이름",
