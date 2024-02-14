@@ -18,6 +18,11 @@ class UserSubscribedSite(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 ) {
+
+    fun update(color: String, isAlarm: Boolean){
+        this.color = color
+        this.isAlarm = isAlarm
+    }
     companion object{
         fun fixture(
             user: User,

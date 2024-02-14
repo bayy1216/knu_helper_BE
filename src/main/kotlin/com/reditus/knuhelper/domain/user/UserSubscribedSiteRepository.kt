@@ -7,4 +7,6 @@ interface UserSubscribedSiteRepository : JpaRepository<UserSubscribedSite, Long>
     fun findByUserId(userId: Long): List<UserSubscribedSite>
 
     fun findByUserIdAndSite(userId: Long, site: Site): UserSubscribedSite?
+
+    fun existsByUserIdAndSite(userId: Long, site: Site): Boolean
 }

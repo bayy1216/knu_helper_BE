@@ -31,6 +31,9 @@ class UserService (
     fun addUserFavoriteSite(userId: Long, request: UserSubscribeSiteRequest): ResponseEntity<Any> {
         val reqSite = Site.getSiteByKoreaName(request.site)
         val user = userRepository.findByIdOrThrow(userId)
+        val isExist = userSubscribedSiteRepository.existsByUserIdAndSite(userId, reqSite)
+        if(isExist) throw IllegalArgumentException("이미 구독중인 사이트입니다.")
+
         val site = UserSubscribedSite(
             user = user,
             site = reqSite,
@@ -45,8 +48,11 @@ class UserService (
     fun updateUserFavoriteSite(userId: Long, request: UserSubscribeSiteRequest): ResponseEntity<Any> {
         val reqSite = Site.getSiteByKoreaName(request.site)
         val site = userSubscribedSiteRepository.findByUserIdAndSite(userId, reqSite) ?: throw IllegalArgumentException("존재하지 않는 사이트입니다.")
-        site.color = request.color
-        site.isAlarm = request.alarm
+
+        site.update(
+            color = request.color,
+            isAlarm = request.alarm
+        )
         return ResponseEntity.status(HttpStatus.OK).build()
     }
 
