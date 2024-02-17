@@ -1,5 +1,7 @@
-package com.reditus.knuhelper.core.exception
+package com.reditus.knuhelper.controller.error
 
+import com.reditus.knuhelper.core.exception.ExpiredJwtException
+import com.reditus.knuhelper.core.exception.InvalidJwtException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
