@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
-class CommonExceptionHandler(
+class ApiExceptionControllerAdvice(
     private val getCallingClass: GetCallingClass,
 ) {
 

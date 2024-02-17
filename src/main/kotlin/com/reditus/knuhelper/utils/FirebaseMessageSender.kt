@@ -7,7 +7,7 @@ import com.google.firebase.messaging.Notification
 import org.springframework.stereotype.Component
 
 @Component
-class FcmUtils {
+class FirebaseMessageSender {
     fun sendSingleMessage(title: String, body: String, token: String):String{
         val message = Message.builder()
             .setNotification(Notification.builder().setTitle(title).setBody(body).build())
