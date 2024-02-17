@@ -1,4 +1,4 @@
-package com.reditus.knuhelper.core.resolver
+package com.reditus.knuhelper.controller.resolver
 
 import com.reditus.knuhelper.core.annotation.TokenUserId
 import com.reditus.knuhelper.core.annotation.TokenUserRole

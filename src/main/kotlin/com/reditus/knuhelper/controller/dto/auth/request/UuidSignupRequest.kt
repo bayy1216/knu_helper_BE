@@ -1,4 +1,4 @@
-package com.reditus.knuhelper.dto.auth.request
+package com.reditus.knuhelper.controller.dto.auth.request
 
 data class UuidSignupRequest(
     val uuid: String,

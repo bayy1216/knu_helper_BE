@@ -4,11 +4,11 @@ import com.reditus.knuhelper.core.annotation.TokenUserId
 import com.reditus.knuhelper.core.annotation.TokenUserRole
 import com.reditus.knuhelper.domain.notice.Site
 import com.reditus.knuhelper.domain.user.UserRole
-import com.reditus.knuhelper.dto.common.PagingResponse
-import com.reditus.knuhelper.dto.notice.request.CreateNoticeRequest
-import com.reditus.knuhelper.dto.notice.response.NoticeDto
-import com.reditus.knuhelper.dto.notice.response.NoticeInfoResponse
-import com.reditus.knuhelper.dto.notice.response.toDto
+import com.reditus.knuhelper.controller.dto.common.PagingResponse
+import com.reditus.knuhelper.controller.dto.notice.request.CreateNoticeRequest
+import com.reditus.knuhelper.controller.dto.notice.response.NoticeDto
+import com.reditus.knuhelper.controller.dto.notice.response.NoticeInfoResponse
+import com.reditus.knuhelper.controller.dto.notice.response.toDto
 import com.reditus.knuhelper.service.NoticeService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -53,7 +53,7 @@ class NoticeController(
             = noticeService.deleteNotice(role, id)
 
     @GetMapping("/site-info")
-    fun getSiteInfo() : NoticeInfoResponse{
+    fun getSiteInfo() : NoticeInfoResponse {
         val sites = Site.entries.map { it.toDto() }
         return NoticeInfoResponse(
             siteInfoList = sites

@@ -1,8 +1,8 @@
 package com.reditus.knuhelper.controller
 
-import com.reditus.knuhelper.dto.auth.request.UuidSignupRequest
-import com.reditus.knuhelper.dto.auth.response.AccessTokenResponse
-import com.reditus.knuhelper.dto.auth.response.TokenResponse
+import com.reditus.knuhelper.controller.dto.auth.request.UuidSignupRequest
+import com.reditus.knuhelper.controller.dto.auth.response.AccessTokenResponse
+import com.reditus.knuhelper.controller.dto.auth.response.TokenResponse
 import com.reditus.knuhelper.service.AuthService
 import com.reditus.knuhelper.utils.DataUtils
 import org.springframework.web.bind.annotation.*
@@ -24,7 +24,7 @@ class AuthController(
     }
 
     @PostMapping("/token")
-    fun token(@RequestHeader("Authorization") authorizationHeader: String) : AccessTokenResponse{
+    fun token(@RequestHeader("Authorization") authorizationHeader: String) : AccessTokenResponse {
         val token = DataUtils.extractAuthorization(authorizationHeader)
         return authService.generateAccessToken(token)
     }

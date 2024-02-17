@@ -5,10 +5,10 @@ import com.reditus.knuhelper.domain.notice.NoticeRepository
 import com.reditus.knuhelper.domain.notice.Site
 import com.reditus.knuhelper.domain.user.UserRepository
 import com.reditus.knuhelper.domain.user.UserRole
-import com.reditus.knuhelper.dto.common.PagingResponse
-import com.reditus.knuhelper.dto.notice.request.CreateNoticeRequest
-import com.reditus.knuhelper.dto.notice.response.NoticeDto
-import com.reditus.knuhelper.dto.notice.response.toDto
+import com.reditus.knuhelper.controller.dto.common.PagingResponse
+import com.reditus.knuhelper.controller.dto.notice.request.CreateNoticeRequest
+import com.reditus.knuhelper.controller.dto.notice.response.NoticeDto
+import com.reditus.knuhelper.controller.dto.notice.response.toDto
 import com.reditus.knuhelper.utils.findByIdOrThrow
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus

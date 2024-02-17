@@ -1,4 +1,4 @@
-package com.reditus.knuhelper.dto.common
+package com.reditus.knuhelper.controller.dto.common
 
 data class PagingResponse<T>(
     val hasNext: Boolean,

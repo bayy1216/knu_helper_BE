@@ -1,4 +1,4 @@
-package com.reditus.knuhelper.dto.notice.response
+package com.reditus.knuhelper.controller.dto.notice.response
 
 import com.reditus.knuhelper.domain.notice.Site
 import com.reditus.knuhelper.domain.notice.SiteCategory
@@ -12,7 +12,7 @@ data class SiteInfo(
     val siteCategoryKorean: String,
 )
 
-fun Site.toDto() : SiteInfo{
+fun Site.toDto() : SiteInfo {
     return SiteInfo(
         site = this.koreaName,
         siteCategoryKorean = this.category.koreaName

@@ -4,10 +4,10 @@ import com.reditus.knuhelper.core.exception.InvalidJwtException
 import com.reditus.knuhelper.domain.user.User
 import com.reditus.knuhelper.domain.user.UserRepository
 import com.reditus.knuhelper.domain.user.UserRole
-import com.reditus.knuhelper.dto.auth.request.UuidSignupRequest
-import com.reditus.knuhelper.dto.auth.response.AccessTokenResponse
-import com.reditus.knuhelper.dto.auth.response.TokenResponse
-import com.reditus.knuhelper.dto.auth.response.toDto
+import com.reditus.knuhelper.controller.dto.auth.request.UuidSignupRequest
+import com.reditus.knuhelper.controller.dto.auth.response.AccessTokenResponse
+import com.reditus.knuhelper.controller.dto.auth.response.TokenResponse
+import com.reditus.knuhelper.controller.dto.auth.response.toDto
 import com.reditus.knuhelper.utils.JwtUtils
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

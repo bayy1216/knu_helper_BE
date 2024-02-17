@@ -1,4 +1,4 @@
-package com.reditus.knuhelper.dto.user.response
+package com.reditus.knuhelper.controller.dto.user.response
 
 import com.reditus.knuhelper.domain.notice.Site
 import com.reditus.knuhelper.domain.user.UserSubscribedSite

@@ -1,4 +1,4 @@
-package com.reditus.knuhelper.dto.auth.response
+package com.reditus.knuhelper.controller.dto.auth.response
 
 import com.reditus.knuhelper.utils.JwtToken
 

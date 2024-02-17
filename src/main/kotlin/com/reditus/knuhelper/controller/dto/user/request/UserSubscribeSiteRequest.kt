@@ -1,4 +1,4 @@
-package com.reditus.knuhelper.dto.user.request
+package com.reditus.knuhelper.controller.dto.user.request
 
 import com.reditus.knuhelper.domain.notice.Site
 

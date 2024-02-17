@@ -1,4 +1,4 @@
-package com.reditus.knuhelper.dto.notice.response
+package com.reditus.knuhelper.controller.dto.notice.response
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.reditus.knuhelper.domain.notice.Notice

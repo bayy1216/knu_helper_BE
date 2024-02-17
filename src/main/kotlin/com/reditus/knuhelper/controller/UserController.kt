@@ -1,9 +1,9 @@
 package com.reditus.knuhelper.controller
 
 import com.reditus.knuhelper.core.annotation.TokenUserId
-import com.reditus.knuhelper.dto.user.request.DeleteUserSubscribedSiteRequest
-import com.reditus.knuhelper.dto.user.request.UserSubscribeSiteRequest
-import com.reditus.knuhelper.dto.user.response.UserSubscribedSiteResponse
+import com.reditus.knuhelper.controller.dto.user.request.DeleteUserSubscribedSiteRequest
+import com.reditus.knuhelper.controller.dto.user.request.UserSubscribeSiteRequest
+import com.reditus.knuhelper.controller.dto.user.response.UserSubscribedSiteResponse
 import com.reditus.knuhelper.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

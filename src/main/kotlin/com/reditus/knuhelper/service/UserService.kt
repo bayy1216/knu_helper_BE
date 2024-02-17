@@ -4,10 +4,10 @@ import com.reditus.knuhelper.domain.notice.Site
 import com.reditus.knuhelper.domain.user.UserSubscribedSite
 import com.reditus.knuhelper.domain.user.UserSubscribedSiteRepository
 import com.reditus.knuhelper.domain.user.UserRepository
-import com.reditus.knuhelper.dto.user.request.DeleteUserSubscribedSiteRequest
-import com.reditus.knuhelper.dto.user.request.UserSubscribeSiteRequest
-import com.reditus.knuhelper.dto.user.response.UserSubscribedSiteResponse
-import com.reditus.knuhelper.dto.user.response.toDto
+import com.reditus.knuhelper.controller.dto.user.request.DeleteUserSubscribedSiteRequest
+import com.reditus.knuhelper.controller.dto.user.request.UserSubscribeSiteRequest
+import com.reditus.knuhelper.controller.dto.user.response.UserSubscribedSiteResponse
+import com.reditus.knuhelper.controller.dto.user.response.toDto
 import com.reditus.knuhelper.utils.findByIdOrThrow
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -20,7 +20,7 @@ class UserService (
     private val userRepository: UserRepository,
     private val userSubscribedSiteRepository: UserSubscribedSiteRepository
 ){
-    fun getUserFavoriteSite(userId: Long): UserSubscribedSiteResponse{
+    fun getUserFavoriteSite(userId: Long): UserSubscribedSiteResponse {
         val sites = userSubscribedSiteRepository.findByUserId(userId)
         return UserSubscribedSiteResponse(
             data = sites.toDto()

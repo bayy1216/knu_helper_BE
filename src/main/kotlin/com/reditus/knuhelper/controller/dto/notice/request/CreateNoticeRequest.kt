@@ -1,4 +1,4 @@
-package com.reditus.knuhelper.dto.notice.request
+package com.reditus.knuhelper.controller.dto.notice.request
 
 import com.reditus.knuhelper.domain.notice.Site
 import org.springframework.format.annotation.DateTimeFormat
