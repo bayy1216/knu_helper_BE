@@ -7,7 +7,7 @@ import com.reditus.knuhelper.domain.user.User
 import com.reditus.knuhelper.domain.user.UserRepository
 import com.reditus.knuhelper.domain.user.UserSubscribedSite
 import com.reditus.knuhelper.domain.user.UserSubscribedSiteRepository
-import com.reditus.knuhelper.utils.FirebaseMessageSender
+import com.reditus.knuhelper.utils.FcmSender
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -24,7 +24,7 @@ class FcmServiceTest @Autowired constructor(
     val fcmService = FcmService(
         userRepository,
         noticeRepository,
-        FakeFirebaseMessageSender(),
+        FakeFcmSender(),
     )
     @AfterEach
     fun clean(){
@@ -67,7 +67,7 @@ class FcmServiceTest @Autowired constructor(
     }
 }
 
-class FakeFirebaseMessageSender : FirebaseMessageSender() {
+class FakeFcmSender : FcmSender() {
     override fun sendSingleMessage(
         title: String,
         body: String,

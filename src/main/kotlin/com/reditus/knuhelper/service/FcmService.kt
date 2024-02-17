@@ -4,7 +4,7 @@ import com.reditus.knuhelper.domain.notice.Notice
 import com.reditus.knuhelper.domain.notice.NoticeRepository
 import com.reditus.knuhelper.domain.notice.Site
 import com.reditus.knuhelper.domain.user.UserRepository
-import com.reditus.knuhelper.utils.FirebaseMessageSender
+import com.reditus.knuhelper.utils.FcmSender
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -14,7 +14,7 @@ import java.time.LocalDateTime
 class FcmService(
     private val userRepository: UserRepository,
     private val noticeRepository: NoticeRepository,
-    private val firebaseMessageSender: FirebaseMessageSender,
+    private val fcmSender: FcmSender,
 ) {
 
     fun sendNoticeMessage(startTime: LocalDateTime, endTime: LocalDateTime): Int{
@@ -34,7 +34,7 @@ class FcmService(
             val title = "${filteredNotice.size}개의 새로운 공지사항이 등록되었습니다."
             val body = makeMessageBody(filteredNotice)
 
-            firebaseMessageSender.sendSingleMessage(
+            fcmSender.sendSingleMessage(
                 title = title,
                 body = body,
                 token = user.fcmToken,
