@@ -1,10 +1,8 @@
-package com.reditus.knuhelper.controller.resolver
+package com.reditus.knuhelper.controller.interceptor
 
 import com.reditus.knuhelper.core.annotation.TokenUserId
 import com.reditus.knuhelper.core.annotation.TokenUserRole
 import com.reditus.knuhelper.domain.user.UserRole
-import com.reditus.knuhelper.utils.DataUtils
-import com.reditus.knuhelper.utils.JwtUtils
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.support.WebDataBinderFactory
@@ -13,9 +11,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.method.support.ModelAndViewContainer
 
 @Component
-class TokenUserIdResolver(
-    val jwtUtils: JwtUtils
-) : HandlerMethodArgumentResolver{
+class TokenUserIdResolver : HandlerMethodArgumentResolver {
     override fun supportsParameter(parameter: MethodParameter): Boolean {
         return parameter.hasParameterAnnotation(TokenUserId::class.java)
                 && parameter.parameterType == Long::class.java
@@ -26,17 +22,13 @@ class TokenUserIdResolver(
         mavContainer: ModelAndViewContainer?,
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
-    ): Any {
-        val authorization = webRequest.getHeader("Authorization") ?: throw IllegalArgumentException("Authorization 헤더가 존재하지 않습니다.")
-        val token = DataUtils.extractAuthorization(authorization)
-        return jwtUtils.extractId(token)
+    ): Any? {
+        return webRequest.getAttribute("userId", NativeWebRequest.SCOPE_REQUEST)
     }
 }
 
 @Component
-class TokenUserRoleResolver(
-    val jwtUtils: JwtUtils
-) : HandlerMethodArgumentResolver{
+class TokenUserRoleResolver : HandlerMethodArgumentResolver {
     override fun supportsParameter(parameter: MethodParameter): Boolean {
         return parameter.hasParameterAnnotation(TokenUserRole::class.java)
                 && parameter.parameterType == UserRole::class.java
@@ -47,9 +39,7 @@ class TokenUserRoleResolver(
         mavContainer: ModelAndViewContainer?,
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
-    ): Any {
-        val authorization = webRequest.getHeader("Authorization") ?: throw IllegalArgumentException("Authorization 헤더가 존재하지 않습니다.")
-        val token = DataUtils.extractAuthorization(authorization)
-        return jwtUtils.extractUserRole(token)
+    ): Any? {
+        return webRequest.getAttribute("userRole", NativeWebRequest.SCOPE_REQUEST)
     }
 }
