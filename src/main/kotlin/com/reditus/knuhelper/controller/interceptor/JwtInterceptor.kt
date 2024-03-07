@@ -1,5 +1,6 @@
 package com.reditus.knuhelper.controller.interceptor
 
+import com.reditus.knuhelper.domain.user.UserRole
 import com.reditus.knuhelper.utils.DataUtils
 import com.reditus.knuhelper.utils.JwtUtils
 import jakarta.servlet.http.HttpServletRequest
@@ -22,6 +23,10 @@ class JwtInterceptor(
 
         val userId = jwtUtils.extractId(token)
         val userRole = jwtUtils.extractUserRole(token)
+        val methodHandler = handler as org.springframework.web.method.HandlerMethod
+        val isAdmin = methodHandler.hasMethodAnnotation(Admin::class.java)
+
+        if(isAdmin && userRole != UserRole.ADMIN) throw IllegalArgumentException("관리자만 접근 가능한 경로입니다.")
 
         request.setAttribute("userId", userId)
         request.setAttribute("userRole", userRole)

@@ -45,7 +45,7 @@ class UserService (
     }
 
     @Transactional
-    fun updateUserFavoriteSite(userId: Long, request: UserSubscribeSiteRequest): ResponseEntity<Any> {
+    fun updateUserFavoriteSite(userId: Long, request: UserSubscribeSiteRequest){
         val reqSite = Site.getSiteByKoreaName(request.site)
         val site = userSubscribedSiteRepository.findByUserIdAndSite(userId, reqSite) ?: throw IllegalArgumentException("존재하지 않는 사이트입니다.")
 
@@ -53,14 +53,12 @@ class UserService (
             color = request.color,
             isAlarm = request.alarm
         )
-        return ResponseEntity.status(HttpStatus.OK).build()
     }
 
     @Transactional
-    fun deleteUserFavoriteSite(userId: Long, request: DeleteUserSubscribedSiteRequest): ResponseEntity<Any> {
+    fun deleteUserFavoriteSite(userId: Long, request: DeleteUserSubscribedSiteRequest){
         val reqSite = Site.getSiteByKoreaName(request.site)
         val site = userSubscribedSiteRepository.findByUserIdAndSite(userId, reqSite) ?: throw IllegalArgumentException("존재하지 않는 사이트입니다.")
         userSubscribedSiteRepository.delete(site)
-        return ResponseEntity.status(HttpStatus.OK).build()
     }
 }

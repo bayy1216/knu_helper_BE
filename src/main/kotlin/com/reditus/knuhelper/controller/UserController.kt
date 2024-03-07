@@ -5,6 +5,7 @@ import com.reditus.knuhelper.controller.dto.user.request.DeleteUserSubscribedSit
 import com.reditus.knuhelper.controller.dto.user.request.UserSubscribeSiteRequest
 import com.reditus.knuhelper.controller.dto.user.response.UserSubscribedSiteResponse
 import com.reditus.knuhelper.service.UserService
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -14,18 +15,22 @@ class UserController(
     private val userService: UserService,
 ) {
     @GetMapping("/favorite-site")
+    @ResponseStatus(HttpStatus.OK)
     fun getUserFavoriteSite(@TokenUserId userId: Long): UserSubscribedSiteResponse =
         userService.getUserFavoriteSite(userId)
 
     @PostMapping("/favorite-site")
+    @ResponseStatus(HttpStatus.CREATED)
     fun addUserFavoriteSite(@TokenUserId userId: Long,@RequestBody request: UserSubscribeSiteRequest): ResponseEntity<Any> =
         userService.addUserFavoriteSite(userId, request)
 
     @PutMapping("/favorite-site")
-    fun updateUserFavoriteSite(@TokenUserId userId: Long,@RequestBody request: UserSubscribeSiteRequest): ResponseEntity<Any> =
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun updateUserFavoriteSite(@TokenUserId userId: Long,@RequestBody request: UserSubscribeSiteRequest) =
         userService.updateUserFavoriteSite(userId, request)
 
     @DeleteMapping("/favorite-site")
-    fun deleteUserFavoriteSite(@TokenUserId userId: Long,@RequestBody request: DeleteUserSubscribedSiteRequest): ResponseEntity<Any> =
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteUserFavoriteSite(@TokenUserId userId: Long,@RequestBody request: DeleteUserSubscribedSiteRequest) =
         userService.deleteUserFavoriteSite(userId, request)
 }

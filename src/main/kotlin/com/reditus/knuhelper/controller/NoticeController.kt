@@ -9,7 +9,9 @@ import com.reditus.knuhelper.controller.dto.notice.request.CreateNoticeRequest
 import com.reditus.knuhelper.controller.dto.notice.response.NoticeDto
 import com.reditus.knuhelper.controller.dto.notice.response.NoticeInfoResponse
 import com.reditus.knuhelper.controller.dto.notice.response.toDto
+import com.reditus.knuhelper.controller.interceptor.Admin
 import com.reditus.knuhelper.service.NoticeService
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -26,6 +29,7 @@ class NoticeController(
     private val noticeService: NoticeService,
 ) {
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     fun getNotice(
         @TokenUserId userId: Long,
         @RequestParam("page") page:Int,
@@ -37,22 +41,25 @@ class NoticeController(
 
 
 
-    @PostMapping
-    fun createNotice(@TokenUserRole role: UserRole, @RequestBody request: CreateNoticeRequest) : Long =
-        noticeService.createNotice(role, request)
+    @PostMapping @Admin
+    @ResponseStatus(HttpStatus.CREATED)
+    fun createNotice(@RequestBody request: CreateNoticeRequest) : Long =
+        noticeService.createNotice(request)
 
 
-    @PostMapping("/insert")
-    fun insertNotice(@TokenUserRole role: UserRole, @RequestBody request: CreateNoticeRequest) : ResponseEntity<Any> =
-        noticeService.insertNotice(role, request)
+    @PostMapping("/insert") @Admin
+    fun insertNotice(@RequestBody request: CreateNoticeRequest) : ResponseEntity<Any> =
+        noticeService.insertNotice(request)
 
 
 
-    @DeleteMapping("/{id}")
-    fun deleteNotice(@TokenUserRole role: UserRole, @PathVariable("id") id: Long) : ResponseEntity<Any>
-            = noticeService.deleteNotice(role, id)
+    @DeleteMapping("/{id}") @Admin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteNotice(@PathVariable("id") id: Long) =
+        noticeService.deleteNotice(id)
 
     @GetMapping("/site-info")
+    @ResponseStatus(HttpStatus.OK)
     fun getSiteInfo() : NoticeInfoResponse {
         val sites = Site.entries.map { it.toDto() }
         return NoticeInfoResponse(

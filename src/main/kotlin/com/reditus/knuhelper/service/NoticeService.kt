@@ -38,8 +38,7 @@ class NoticeService(
     }
 
     @Transactional
-    fun createNotice(role: UserRole, request: CreateNoticeRequest) : Long {
-        if(role != UserRole.ADMIN) throw AccessDeniedException("권한이 없습니다.")
+    fun createNotice(request: CreateNoticeRequest) : Long {
         val notice = Notice(
             title = request.title,
             type = request.type,
@@ -54,22 +53,19 @@ class NoticeService(
 
     @Transactional
     //url로 공지 조회후 있으면 수정, 없으면 생성
-    fun insertNotice(role: UserRole, request: CreateNoticeRequest): ResponseEntity<Any> {
-        if(role != UserRole.ADMIN) throw AccessDeniedException("권한이 없습니다.")
+    fun insertNotice(request: CreateNoticeRequest): ResponseEntity<Any> {
         val notice = noticeRepository.findByUrl(request.url)
         notice?.let {
             it.title = request.title
             it.views = request.views
             return ResponseEntity.status(HttpStatus.OK).build()
-        } ?: createNotice(role, request)
+        } ?: createNotice(request)
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 
     @Transactional
-    fun deleteNotice(role: UserRole, noticeId: Long): ResponseEntity<Any> {
-        if(role != UserRole.ADMIN) throw AccessDeniedException("권한이 없습니다.")
+    fun deleteNotice(noticeId: Long) {
         val notice = noticeRepository.findByIdOrThrow(noticeId)
         noticeRepository.delete(notice)
-        return ResponseEntity.status(HttpStatus.OK).build()
     }
 }
