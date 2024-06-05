@@ -15,21 +15,27 @@ class UserController(
 ) {
     @GetMapping("/favorite-site")
     @ResponseStatus(HttpStatus.OK)
-    fun getUserFavoriteSite(@TokenUserId userId: Long): UserSubscribedSiteResponse =
-        userService.getUserFavoriteSite(userId)
+    fun getUserFavoriteSite(@TokenUserId userId: Long): UserSubscribedSiteResponse {
+        return userService.getUserFavoriteSite(userId)
+    }
+
 
     @PostMapping("/favorite-site")
     @ResponseStatus(HttpStatus.CREATED)
-    fun addUserFavoriteSite(@TokenUserId userId: Long, @RequestBody request: UserSubscribeSiteRequest) =
+    fun addUserFavoriteSite(@TokenUserId userId: Long, @RequestBody request: UserSubscribeSiteRequest) {
         userService.addUserFavoriteSite(userId, request)
+    }
 
     @PutMapping("/favorite-site")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun updateUserFavoriteSite(@TokenUserId userId: Long, @RequestBody request: UserSubscribeSiteRequest) =
+    fun updateUserFavoriteSite(@TokenUserId userId: Long, @RequestBody request: UserSubscribeSiteRequest) {
         userService.updateUserFavoriteSite(userId, request)
+    }
 
     @DeleteMapping("/favorite-site")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteUserFavoriteSite(@TokenUserId userId: Long, @RequestBody request: DeleteUserSubscribedSiteRequest) =
+    fun deleteUserFavoriteSite(@TokenUserId userId: Long, @RequestBody request: DeleteUserSubscribedSiteRequest) {
         userService.deleteUserFavoriteSite(userId, request)
+    }
+
 }

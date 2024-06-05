@@ -28,7 +28,7 @@ class NoticeService(
         } else {
             noticeRepository.findAllBySiteInAndTitleContainingOrderByDateDescViewsAsc(sites, title, pageRequest)
         }
-        return noticePage.toDto()
+        return PagingResponse.from(noticePage, Notice::toDto)
     }
 
     @Transactional
@@ -60,11 +60,4 @@ class NoticeService(
         val notice = noticeRepository.findByIdOrThrow(noticeId)
         noticeRepository.delete(notice)
     }
-}
-
-fun Page<Notice>.toDto(): PagingResponse<NoticeDto> {
-    return PagingResponse(
-        hasNext = this.hasNext(),
-        data = this.content.map { it.toDto() }
-    )
 }

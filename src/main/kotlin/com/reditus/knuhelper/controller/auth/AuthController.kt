@@ -15,8 +15,10 @@ class AuthController(
 ) {
     @PostMapping("/signup/v1")
     @ResponseStatus(HttpStatus.CREATED)
-    fun uuidSignup(@RequestBody request: UuidSignupRequest): TokenResponse =
-        authService.uuidSignup(request)
+    fun uuidSignup(@RequestBody request: UuidSignupRequest): TokenResponse{
+        return authService.uuidSignup(request)
+    }
+
 
     @PostMapping("/login/v1")
     @ResponseStatus(HttpStatus.OK)

@@ -35,25 +35,33 @@ class NoticeController(
         @RequestParam("size", required = false) size: Int = 20,
         @RequestParam("title", required = false) title: String? = null,
         @RequestParam("site", required = false) site: String? = null,
-    ): PagingResponse<NoticeDto> = noticeService.getNotice(userId, PageRequest.of(page,size), title, site)
+    ): PagingResponse<NoticeDto> {
+        return noticeService.getNotice(userId, PageRequest.of(page, size), title, site)
+    }
 
 
     @PostMapping
     @Admin
     @ResponseStatus(HttpStatus.CREATED)
-    fun createNotice(@RequestBody request: CreateNoticeRequest): Long = noticeService.createNotice(request)
+    fun createNotice(@RequestBody request: CreateNoticeRequest): Long {
+        return noticeService.createNotice(request)
+    }
 
 
     @PostMapping("/insert")
     @Admin
-    fun insertNotice(@RequestBody request: CreateNoticeRequest) = noticeService.insertNotice(request)
+    fun insertNotice(@RequestBody request: CreateNoticeRequest) {
+        noticeService.insertNotice(request)
+    }
 
 
     @DeleteMapping("/{id}")
     @Admin
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteNotice(@PathVariable("id") id: Long) =
+    fun deleteNotice(@PathVariable("id") id: Long){
         noticeService.deleteNotice(id)
+    }
+
 
     @GetMapping("/site-info")
     @ResponseStatus(HttpStatus.OK)
