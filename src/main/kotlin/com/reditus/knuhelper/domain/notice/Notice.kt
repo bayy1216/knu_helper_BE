@@ -5,6 +5,7 @@ import jakarta.persistence.*
 import java.time.LocalDate
 
 @Entity
+@Table(indexes = [Index(name="idx_date_views",columnList = "date, views")])
 class Notice(
     var title: String,
     val type: String,
