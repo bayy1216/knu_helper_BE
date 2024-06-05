@@ -23,11 +23,7 @@ class NoticeService(
         val sites = site?.let { listOf(Site.getSiteByKoreaName(site)) }
             ?: user.subscribedSite.map { it.site }
 
-        val noticePage = if(title == null) {
-            noticeRepository.findAllBySiteInOrderByDateDescViewsAsc(sites, pageRequest)
-        } else {
-            noticeRepository.findAllBySiteInAndTitleContainingOrderByDateDescViewsAsc(sites, title, pageRequest)
-        }
+        val noticePage = noticeRepository.findAllByPagination(sites, pageRequest, title)
         return PagingResponse.from(noticePage, Notice::toDto)
     }
 

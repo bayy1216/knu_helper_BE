@@ -64,6 +64,6 @@ class FcmServiceTest @Autowired constructor(
 
         val now = LocalDateTime.now()
         val count = fcmService.getFcmMessages(now.minusHours(1), now)
-        assertThat(count).isEqualTo(1)
+        assertThat(count.size).isEqualTo(1)
     }
 }
