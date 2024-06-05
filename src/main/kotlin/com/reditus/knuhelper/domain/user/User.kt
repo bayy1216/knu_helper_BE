@@ -32,6 +32,19 @@ class User(
         return subscribedSite.filter { site -> site.isAlarm }.map { subscribedSite -> subscribedSite.site }
     }
     companion object{
+        fun create(
+            uuid: String,
+            fcmToken: String,
+        ): User{
+            return User(
+                nickname = uuid,
+                email = null,
+                password = null,
+                userRole = UserRole.USER,
+                fcmToken = fcmToken,
+            )
+        }
+
         fun fixture(
             name: String = "사용자이름",
             email: String? = "사용자 이메일",

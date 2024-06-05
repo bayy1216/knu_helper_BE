@@ -1,13 +1,15 @@
 package com.reditus.knuhelper.service
 
+import com.reditus.knuhelper.domain.fcm.FcmSender
 import com.reditus.knuhelper.domain.notice.Notice
-import com.reditus.knuhelper.domain.notice.NoticeRepository
+import com.reditus.knuhelper.infrastucture.notice.NoticeRepository
 import com.reditus.knuhelper.domain.notice.Site
 import com.reditus.knuhelper.domain.user.User
-import com.reditus.knuhelper.domain.user.UserRepository
+import com.reditus.knuhelper.infrastucture.user.UserRepository
 import com.reditus.knuhelper.domain.user.UserSubscribedSite
-import com.reditus.knuhelper.domain.user.UserSubscribedSiteRepository
-import com.reditus.knuhelper.utils.FcmSender
+import com.reditus.knuhelper.infrastucture.user.UserSubscribedSiteRepository
+import com.reditus.knuhelper.domain.fcm.FcmService
+import com.reditus.knuhelper.infrastucture.fcm.FcmSenderImpl
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -24,7 +26,6 @@ class FcmServiceTest @Autowired constructor(
     val fcmService = FcmService(
         userRepository,
         noticeRepository,
-        FakeFcmSender(),
     )
     @AfterEach
     fun clean(){
@@ -62,18 +63,7 @@ class FcmServiceTest @Autowired constructor(
         userSubscribedSiteRepository.saveAll(listOf(user1SubscribedSite, user2SubscribedSite,user1SubscribedSite111))
 
         val now = LocalDateTime.now()
-        val count = fcmService.sendNoticeMessage(now.minusHours(1), now)
+        val count = fcmService.getFcmMessages(now.minusHours(1), now)
         assertThat(count).isEqualTo(1)
-    }
-}
-
-class FakeFcmSender : FcmSender() {
-    override fun sendSingleMessage(
-        title: String,
-        body: String,
-        token: String,
-    ): String {
-        println("--send message to $token $title-- \n$body")
-        return "--send message to $token $title-- \n$body"
     }
 }

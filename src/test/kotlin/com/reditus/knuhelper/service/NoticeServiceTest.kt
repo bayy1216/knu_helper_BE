@@ -1,19 +1,19 @@
 package com.reditus.knuhelper.service
 
 import com.reditus.knuhelper.domain.notice.Notice
-import com.reditus.knuhelper.domain.notice.NoticeRepository
+import com.reditus.knuhelper.infrastucture.notice.NoticeRepository
 import com.reditus.knuhelper.domain.notice.Site
 import com.reditus.knuhelper.domain.user.User
-import com.reditus.knuhelper.domain.user.UserRepository
+import com.reditus.knuhelper.infrastucture.user.UserRepository
 import com.reditus.knuhelper.domain.user.UserSubscribedSite
-import com.reditus.knuhelper.domain.user.UserSubscribedSiteRepository
+import com.reditus.knuhelper.infrastucture.user.UserSubscribedSiteRepository
+import com.reditus.knuhelper.domain.notice.NoticeService
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import java.time.LocalDateTime
+import org.springframework.data.domain.PageRequest
 
 @SpringBootTest
 class NoticeServiceTest @Autowired constructor(
@@ -63,10 +63,10 @@ class NoticeServiceTest @Autowired constructor(
 
 
         //when
-        val noticesPage0 = noticeService.getNotice(user1.id!!, 0, 20, "", null)
-        val noticesPage1 = noticeService.getNotice(user1.id!!, 1, 20, "", null)
-        val noticesKnuPage0 = noticeService.getNotice(user1.id!!, 0, 20, "", Site.KNU.koreaName)
-        val noticesAppchemPage0 = noticeService.getNotice(user1.id!!, 0, 20, "", Site.APPCHEM.koreaName)
+        val noticesPage0 = noticeService.getNotice(user1.id!!, PageRequest.of(0,20), "", null)
+        val noticesPage1 = noticeService.getNotice(user1.id!!, PageRequest.of(1,20), "", null)
+        val noticesKnuPage0 = noticeService.getNotice(user1.id!!, PageRequest.of(0,20), "", Site.KNU.koreaName)
+        val noticesAppchemPage0 = noticeService.getNotice(user1.id!!, PageRequest.of(0,20), "", Site.APPCHEM.koreaName)
 
         //then
         println(noticesPage0)

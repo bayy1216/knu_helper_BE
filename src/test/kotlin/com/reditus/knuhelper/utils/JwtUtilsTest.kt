@@ -1,6 +1,7 @@
 package com.reditus.knuhelper.utils
 
 import com.reditus.knuhelper.domain.user.UserRole
+import com.reditus.knuhelper.global.utils.JwtUtils
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 

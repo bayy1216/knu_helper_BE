@@ -21,6 +21,12 @@ class Notice(
     val id: Long? = null,
 ) : BaseTimeEntity(){
 
+    fun update(title: String, views: Int){
+        this.title = title
+        this.views = views
+    }
+
+
     companion object{
         fun fixture(
             title: String = "제목",
