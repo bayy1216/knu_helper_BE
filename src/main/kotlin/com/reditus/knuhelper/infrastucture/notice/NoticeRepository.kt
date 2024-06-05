@@ -42,7 +42,7 @@ class NoticeRepositoryImpl(
         val count = queryFactory
             .select(notice.count())
             .from(notice)
-            .where(notice.site.`in`(sites))
+            .where(notice.site.`in`(sites), title?.let { notice.title.contains(title) })
             .fetchOne() ?: 0
         return PageImpl(notices, pageable, count)
     }
