@@ -17,11 +17,7 @@ class FcmService(
 ) {
 
     fun getFcmMessages(startTime: LocalDateTime, endTime: LocalDateTime): List<FcmMessage>{
-        // date에 인덱스가 걸려있으므로, 오늘의 공지사항을 가져올때는 date를 사용한다.
-        // 이후 시간대를 사용하여 공지사항을 필터링한다.
-        val notices = noticeRepository.findAllByDate(startTime.toLocalDate()).filter {
-            it.createdAt!!.isAfter(startTime) && it.createdAt!!.isBefore(endTime)
-        }
+        val notices = noticeRepository.findAllByDateAfterBefore(startTime, endTime)
 
         val sites = notices.map { notice -> notice.site }.distinct()
 

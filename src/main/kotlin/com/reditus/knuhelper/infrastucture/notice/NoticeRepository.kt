@@ -12,19 +12,18 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 interface NoticeRepository : JpaRepository<Notice, Long>, NoticeRepositoryCustom {
-    fun findAllBySiteInAndTitleContainingOrderByDateDescViewsAsc(sites: List<Site>, title: String, pageable: Pageable): Page<Notice>
-    fun findAllBySiteInOrderByDateDescViewsAsc(sites: List<Site>, pageable: Pageable): Page<Notice>
-
-
-    fun findAllByCreatedAtAfter(createdAt: LocalDateTime): List<Notice>
-
-    fun findAllByDate(date: LocalDate): List<Notice>
 
     fun findByUrl(url: String): Notice?
 }
 
 interface NoticeRepositoryCustom {
     fun findAllByPagination(sites:List<Site>, pageable: Pageable, title:String?): Page<Notice>
+
+    /**
+     * startTime과 endTime 사이의 공지사항을 조회한다.
+     * Notice의 date에 인덱스가 걸려있으므로, startTime의 date를 사용해 성능 향상을 기대한다.
+     */
+    fun findAllByDateAfterBefore(startTime: LocalDateTime, endTime: LocalDateTime): List<Notice>
 }
 
 class NoticeRepositoryImpl(
@@ -45,5 +44,14 @@ class NoticeRepositoryImpl(
             .where(notice.site.`in`(sites), title?.let { notice.title.contains(title) })
             .fetchOne() ?: 0
         return PageImpl(notices, pageable, count)
+    }
+
+    override fun findAllByDateAfterBefore(startTime: LocalDateTime, endTime: LocalDateTime): List<Notice> {
+        return queryFactory
+            .selectFrom(notice)
+            .where(notice.date.eq(startTime.toLocalDate())
+                ,notice.createdAt!!.between(startTime, endTime)
+            )
+            .fetch()
     }
 }
