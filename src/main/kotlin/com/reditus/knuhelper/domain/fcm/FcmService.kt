@@ -16,14 +16,22 @@ class FcmService(
     private val noticeRepository: NoticeRepository,
 ) {
 
+    /**
+     * startTime과 endTime 사이의 공지사항을 조회하여
+     * 구독중인 유저들에게 보낼 FcmMessage를 만든다.
+     *
+     * 1. startTime과 endTime 사이의 공지사항을 조회한다.
+     * 2. 해당 공지사항들의 site를 구독중인 유저들을 조회한다.
+     * 3. 각 유저별로 FcmMessage를 만든다.
+     * 4. 이후 전송은 service를 호출한 곳에서 진행한다.
+     */
     fun getFcmMessages(startTime: LocalDateTime, endTime: LocalDateTime): List<FcmMessage>{
-        val notices = noticeRepository.findAllByDateAfterBefore(startTime, endTime)
-
+        val notices = noticeRepository.findAllByDateAfterBefore(startTime, endTime) //1
         val sites = notices.map { notice -> notice.site }.distinct()
 
-        val users = userRepository.findAllWithIsAlarmSubscribedSites(sites)
+        val users = userRepository.findAllWithIsAlarmSubscribedSites(sites) //2
 
-        val fcmMessages = users.mapNotNull { user ->
+        val fcmMessages = users.mapNotNull { user -> //3
             val subscribedSites: List<Site> = user.getAlarmSites()
             //구독중인 사이트의 공지사항만 필터링
             val filteredNotice = notices.filter { notice ->
