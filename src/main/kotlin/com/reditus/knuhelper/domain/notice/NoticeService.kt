@@ -28,15 +28,8 @@ class NoticeService(
     }
 
     @Transactional
-    fun createNotice(request: CreateNoticeRequest) : Long {
-        val notice = Notice(
-            title = request.title,
-            type = request.type,
-            url = request.url,
-            views = request.views,
-            site = request.site,
-            date = request.date
-        )
+    fun createNotice(command: NoticeCommand.Create) : Long {
+        val notice = Notice.create(command)
         noticeRepository.save(notice)
         return notice.id!!
     }
@@ -46,9 +39,8 @@ class NoticeService(
     fun insertNotice(request: CreateNoticeRequest){
         val notice = noticeRepository.findByUrl(request.url)
         notice?.update(
-            title = request.title,
-            views = request.views
-        ) ?: createNotice(request)
+            command = request.toUpdateCommand()
+        ) ?: createNotice(request.toCommand())
     }
 
     @Transactional

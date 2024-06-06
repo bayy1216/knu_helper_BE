@@ -44,7 +44,7 @@ class NoticeController(
     @Admin
     @ResponseStatus(HttpStatus.CREATED)
     fun createNotice(@RequestBody request: CreateNoticeRequest): Long {
-        return noticeService.createNotice(request)
+        return noticeService.createNotice(request.toCommand())
     }
 
 

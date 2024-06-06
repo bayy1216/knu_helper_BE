@@ -22,13 +22,24 @@ class Notice(
     val id: Long? = null,
 ) : BaseTimeEntity(){
 
-    fun update(title: String, views: Int){
-        this.title = title
-        this.views = views
+    fun update(command: NoticeCommand.Update){
+        this.title = command.title
+        this.views = command.views
     }
 
 
     companion object{
+        fun create(command: NoticeCommand.Create) : Notice{
+            return Notice(
+                title = command.title,
+                type = command.type,
+                url = command.url,
+                views = command.views,
+                site = command.site,
+                date = command.date
+            )
+        }
+
         fun fixture(
             title: String = "제목",
             type: String = "일반공지",
@@ -49,4 +60,20 @@ class Notice(
             )
         }
     }
+}
+
+class NoticeCommand{
+    class Create(
+        val title: String,
+        val type: String,
+        val url: String,
+        val views: Int,
+        val site: Site,
+        val date: LocalDate,
+    )
+
+    class Update(
+        val title: String,
+        val views: Int,
+    )
 }
