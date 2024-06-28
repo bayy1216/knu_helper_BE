@@ -30,7 +30,7 @@ class UserService (
     @Transactional
     fun addUserFavoriteSite(userId: Long, request: UserSubscribeSiteRequest) {
         val reqSite = Site.getSiteByKoreaName(request.site)
-        val user = userRepository.findByIdOrThrow(userId)
+        val user = userRepository.getReferenceById(userId)
         val isExist = userSubscribedSiteRepository.existsByUserIdAndSite(userId, reqSite)
         if(isExist) throw IllegalArgumentException("이미 구독중인 사이트입니다.")
 
