@@ -19,13 +19,13 @@ interface UserRepository : JpaRepository<User, Long>, UserRepositoryCustom {
 }
 
 interface UserRepositoryCustom {
-    fun findAllWithIsAlarmSubscribedSites(sites: List<Site>): List<User>
+    fun findAllWithIsAlarmSubscribedSites(sites: Set<Site>): List<User>
 }
 
 class UserRepositoryImpl(
     private val queryFactory: JPAQueryFactory
 ) : UserRepositoryCustom {
-    override fun findAllWithIsAlarmSubscribedSites(sites: List<Site>): List<User> {
+    override fun findAllWithIsAlarmSubscribedSites(sites: Set<Site>): List<User> {
         return queryFactory
             .selectFrom(user)
             .leftJoin(user.subscribedSite).fetchJoin()
